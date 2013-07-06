@@ -1,0 +1,5 @@
+config.json
+temp.json
+vendor/
+
+*.kate-swp
