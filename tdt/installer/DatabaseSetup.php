@@ -25,13 +25,16 @@ class DatabaseSetup
         $user = 'root';
         $password = $tempconfig->rootpassword;
 
-        try {
+        try 
+        {
             $dbh = new \PDO($dsn, $user, $password);
             $dbh->query("create database ".$dbconfig->name);
             $dbh->query("create user '".$dbconfig->user."'@'localhost' identified by '".$dbconfig->password."'");
             $dbh->query("grant all on ".$dbconfig->name.".* to '".$dbconfig->user."'@'localhost'");
             $result = "OK";
-        } catch (\PDOException $e) {
+        } 
+        catch (\PDOException $e) 
+        {
             $result = 'Connection failed: ' . $e->getMessage();
         }
     

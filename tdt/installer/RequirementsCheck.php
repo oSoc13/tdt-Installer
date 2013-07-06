@@ -12,27 +12,27 @@ class RequirementsCheck
 {
     public function getResult()
     {
-	$result = $this->phpModuleEnabled('mysql') ? "MySQL loaded" : "No MySQL";
-	$result .= PHP_EOL;
-	$result .= $this->phpModuleEnabled('curl') ? "CURL loaded" : "No CURL";
-	$result .= PHP_EOL;
-	$result .= $this->phpFunctionExists('exec') ? "PHP exec loaded" : "Not loaded";
-	$result .= PHP_EOL;
-	$result .= $this->apacheModuleEnabled('mod_rewrite') ? "Mod_rewrite loaded" : "Rewrite not loaded";
-	
-	$result .= PHP_EOL;
-	$result .= $this->gitInstalled() ? 'Git installed' : 'No git';
-	
-	$result .= PHP_EOL;
-	$result .= $this->composerInstalled() ? 'Composer installed' : 'No composer';
-	
-	$result .= PHP_EOL;
-	$result .= $this->getMysqlVersion();
-	
-	$result .= PHP_EOL;
-	$result .= $this->directoryIsWritable() ? 'Dir writable' : 'Dir not writable!';
-	
-	return $result;
+        $result = $this->phpModuleEnabled('mysql') ? "MySQL loaded" : "No MySQL";
+        $result .= PHP_EOL;
+        $result .= $this->phpModuleEnabled('curl') ? "CURL loaded" : "No CURL";
+        $result .= PHP_EOL;
+        $result .= $this->phpFunctionExists('exec') ? "PHP exec loaded" : "Not loaded";
+        $result .= PHP_EOL;
+        $result .= $this->apacheModuleEnabled('mod_rewrite') ? "Mod_rewrite loaded" : "Rewrite not loaded";
+
+        $result .= PHP_EOL;
+        $result .= $this->gitInstalled() ? 'Git installed' : 'No git';
+
+        $result .= PHP_EOL;
+        $result .= $this->composerInstalled() ? 'Composer installed' : 'No composer';
+
+        $result .= PHP_EOL;
+        $result .= $this->getMysqlVersion();
+
+        $result .= PHP_EOL;
+        $result .= $this->directoryIsWritable() ? 'Dir writable' : 'Dir not writable!';
+
+        return $result;
     }
     
     /**
@@ -42,7 +42,7 @@ class RequirementsCheck
      */
     private function phpModuleEnabled($module)
     {
-	return extension_loaded($module);
+        return extension_loaded($module);
     }
     
     /**
@@ -52,7 +52,7 @@ class RequirementsCheck
      */
     private function phpFunctionExists($function)
     {
-	return function_exists($function);
+        return function_exists($function);
     }
     
     /**
@@ -62,7 +62,7 @@ class RequirementsCheck
      */
     private function apacheModuleEnabled($module)
     {
-	return array_search($module, apache_get_modules());
+        return array_search($module, apache_get_modules());
     }
     
     /**
@@ -74,16 +74,16 @@ class RequirementsCheck
      */
     private function composerInstalled()
     {
-	$output = exec('which composer');
-	if(file_exists($line = trim($output))) {
+        $output = exec('which composer');
+        if(file_exists($line = trim($output))) {
             $this->writeComposerInfo('composer');
-	    return true;
-	} else {
-	    $output = exec('which composer.phar');
-	    $result = file_exists($line = trim($output));
-	    $this->writeComposerInfo('composer.phar');
-	    return $result;
-	}
+            return true;
+        } else {
+            $output = exec('which composer.phar');
+            $result = file_exists($line = trim($output));
+            $this->writeComposerInfo('composer.phar');
+            return $result;
+        }
     }
     
     /**
@@ -92,8 +92,8 @@ class RequirementsCheck
      */
     private function gitInstalled()
     {
-	$output = exec('which git');
-	return file_exists($line = trim($output));
+        $output = exec('which git');
+        return file_exists($line = trim($output));
     }
     
     /**
@@ -103,10 +103,10 @@ class RequirementsCheck
      */
     private function getMysqlVersion()
     {
-	$output = exec('mysql -V');
-	$match = preg_match('@[0-9]+\.[0-9]+\.[0-9]+@', $output, $matches);
-	if($match) return $matches[0];
-	else return NULL;
+        $output = exec('mysql -V');
+        $match = preg_match('@[0-9]+\.[0-9]+\.[0-9]+@', $output, $matches);
+        if($match) return $matches[0];
+        else return NULL;
     }
     
     /**
@@ -115,10 +115,10 @@ class RequirementsCheck
      */
     private function directoryIsWritable()
     {
-	/*$dir = dirname($_SERVER['PHP_SELF']);
-	$dir = $_SERVER['DOCUMENT_ROOT'] . $dir;*/
-	
-	return is_writable('.') && is_writable('..');
+        /*$dir = dirname($_SERVER['PHP_SELF']);
+        $dir = $_SERVER['DOCUMENT_ROOT'] . $dir;*/
+
+        return is_writable('.') && is_writable('..');
     }
     
         
