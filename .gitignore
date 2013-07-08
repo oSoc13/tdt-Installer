@@ -1,5 +1,6 @@
 config.json
 temp.json
+composer.lock
 vendor/
 
 *.kate-swp
