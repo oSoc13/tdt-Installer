@@ -1,5 +1,6 @@
 config.json
-temp.json
+settings/temp.json
+settings/composeroutput.json
 composer.lock
 vendor/
 

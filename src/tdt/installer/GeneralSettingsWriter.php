@@ -10,14 +10,48 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class ConfigurationSetter
+class GeneralSettingsWriter
 { 
-    public function getResult()
+    private $configPath = "../app/config/";
+    
+    public function writeGeneralData($session)
     {
-        $configPath = "../app/config/";
+        //$oldGeneralSettingsFile = $this->configPath."general.example.json";
+        $generalSettingsFile = $this->configPath."general.json";
+        //copy($oldGeneralSettingsFile, $generalSettingsFile);
         
-        $generalSettingsFile = $configPath."general.json";
-        $dbSettingsFile = $configPath."db.json";
+        $generalSettings = array(); //json_decode(file_get_contents($generalSettingsFile), true);
+        
+        $generalSettings['hostname'] = $session->get('hostname');
+        $generalSettings['subdir'] = $session->get('subdir');
+        $generalSettings['timezone'] = $session->get('timezone');
+        $generalSettings['defaultlanguage'] = $session->get('defaultlanguage');
+        $generalSettings['defaultformat'] = $session->get('defaultformat');
+        
+        $generalSettings['accesslogapache'] = $session->get('accesslogapache');
+        $generalSettings['apachelogformat'] = "common";
+        
+        $generalSettings['cache'] = array();
+        $generalSettings['cache']['system'] = $session->get('cachesystem');
+        $generalSettings['cache']['host'] = $session->get('cachehost');
+        $generalSettings['cache']['port'] = $session->get('cacheport');
+        
+        $generalSettings['faultinjection'] = array();
+        $generalSettings['faultinjection']['enabled'] = true;
+        $generalSettings['faultinjection']['period'] = 1000;
+        
+        $generalSettings['logging'] = array();
+        $generalSettings['logging']['enabled'] = $session->get('logenabled');
+        $generalSettings['logging']['path'] = $session->get('logpath');
+        
+        $result = file_put_contents($generalSettingsFile, json_encode($generalSettings));
+        
+        return $result ? "Success" : "Failure";
+    }
+}
+
+
+        /*$dbSettingsFile = $configPath."db.json";
         
         $oldCoresFile = $configPath."cores.example.json";
         $newCoresFile = $configPath."cores.json";
@@ -61,8 +95,4 @@ class ConfigurationSetter
         
         $result = $result && file_put_contents($dbSettingsFile, json_encode($dbSettings));
         
-        copy("../public/index.example.php", "../public/index.php");
-        
-        return $result ? "Success" : "Failure";
-    }
-}
+        copy("../public/index.example.php", "../public/index.php");*/

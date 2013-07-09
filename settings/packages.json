@@ -1,0 +1,23 @@
+[
+    {
+        "name" : "Core",
+        "required" : true,
+        "description" : "Lorem ipsum dolor.",
+        "packagename" : "tdt/core",
+        "packageversion" : "dev-master"
+    },
+    {
+        "name" : "UI",
+        "required" : false,
+        "description" : "Lorem ipsum dolor.",
+        "packagename" : "tdt/ui",
+        "packageversion" : "dev-master"
+    },
+    {
+        "name" : "Input",
+        "required" : false,
+        "description" : "Lorem ipsum dolor.",
+        "packagename" : "tdt/input",
+        "packageversion" : "dev-master"
+    }
+]

@@ -3,7 +3,7 @@
 namespace tdt\installer;
 
 /**
- * Checks if the requiremtents for the Datatank are met.
+ * Checks if the requirements for the Datatank are met.
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
@@ -12,26 +12,16 @@ class RequirementsCheck
 {
     public function getResult()
     {
-        $result = $this->phpModuleEnabled('mysql') ? "MySQL loaded" : "No MySQL";
-        $result .= PHP_EOL;
-        $result .= $this->phpModuleEnabled('curl') ? "CURL loaded" : "No CURL";
-        $result .= PHP_EOL;
-        $result .= $this->phpFunctionExists('exec') ? "PHP exec loaded" : "Not loaded";
-        $result .= PHP_EOL;
-        $result .= $this->apacheModuleEnabled('mod_rewrite') ? "Mod_rewrite loaded" : "Rewrite not loaded";
-
-        $result .= PHP_EOL;
-        $result .= $this->gitInstalled() ? 'Git installed' : 'No git';
-
-        $result .= PHP_EOL;
-        $result .= $this->composerInstalled() ? 'Composer installed' : 'No composer';
-
-        $result .= PHP_EOL;
-        $result .= $this->getMysqlVersion();
-
-        $result .= PHP_EOL;
-        $result .= $this->directoryIsWritable() ? 'Dir writable' : 'Dir not writable!';
-
+        $result = array();
+        $result['Directory writable'] = $this->directoryIsWritable();
+        $result['MySQL enabled'] = $this->phpModuleEnabled('pdo_mysql');
+        $result['Correct MySQL version'] = $this->mysqlVersionIsCorrect();
+        $result['curl loaded'] = $this->phpModuleEnabled('curl');
+        $result['PHP exec enabled'] = $this->phpFunctionExists('exec');
+        $result['mod_rewrite enabled'] = $this->apacheModuleEnabled('mod_rewrite');
+        $result['Git installed'] = $this->gitInstalled();
+        $result['Composer in PATH'] = $this->composerInstalled();
+        
         return $result;
     }
     
@@ -62,7 +52,7 @@ class RequirementsCheck
      */
     private function apacheModuleEnabled($module)
     {
-        return array_search($module, apache_get_modules());
+        return array_search($module, apache_get_modules()) !== FALSE;
     }
     
     /**
@@ -97,16 +87,12 @@ class RequirementsCheck
     }
     
     /**
-     * Returns the version of the MySQL server on the host. Returns NULL if
-     * no MySQL version was found.
+     * Checks if the correct version of MySQL is installed (5 or higher).
      * @return mixed
      */
-    private function getMysqlVersion()
+    private function mysqlVersionIsCorrect()
     {
-        $output = exec('mysql -V');
-        $match = preg_match('@[0-9]+\.[0-9]+\.[0-9]+@', $output, $matches);
-        if($match) return $matches[0];
-        else return NULL;
+        return substr(mysqli_get_client_version(), 0, 1) >= 5;
     }
     
     /**
@@ -127,8 +113,10 @@ class RequirementsCheck
      */
     private function writeComposerInfo($info)
     {
-        $tempsettings = json_decode(file_get_contents('temp.json'));
+        $tempFile = 'settings/temp.json';
+    
+        $tempsettings = json_decode(file_get_contents($tempFile));
         $tempsettings->composer = $info;
-        file_put_contents('temp.json', json_encode($tempsettings));
+        file_put_contents($tempFile, json_encode($tempsettings));
     }
 }

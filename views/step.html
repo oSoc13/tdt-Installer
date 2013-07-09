@@ -1,0 +1,20 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+    <h2 id="title"></h2>
+    
+    <form id="contentForm">
+        <div id="output"></div>
+    </form>
+    
+    <button id="nextButton" onClick="nextStep({{ currentStep + 1 }});" disabled>Next &gt;</button>
+    
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="scripts/nextStep.js"></script>
+    <script src="scripts/step{{ currentStep }}.js"></script>
+
+{% endblock %}

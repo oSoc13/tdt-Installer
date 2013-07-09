@@ -15,19 +15,22 @@ class GitCloner
     {
         $tempdir = '../tdt/';
         $command = "git clone https://github.com/tdt/start.git {$tempdir}";
-        $output = exec($command);
-
-        $files = scandir($tempdir);
-        foreach($files as $file)
+        exec($command, $output, $status);
+        
+        if($status === 0)
         {
-            if($file != '.' && $file != '..')
+            $files = scandir($tempdir);
+            foreach($files as $file)
             {
-                rename($tempdir.$file, "../{$file}");
+                if($file != '.' && $file != '..')
+                {
+                    rename($tempdir.$file, "../{$file}");
+                }
             }
         }
 
         rmdir($tempdir);
 
-        return "Ran a git command!: " . PHP_EOL . $output;
+        return $status === 0;
     }
 }
