@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>The Datatank Installer</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/main.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    
+    <header align="center">
+      <img id="icon" src="img/tdt_icon.png" alt="icon">
+    </header>
+
+    <section align="center" id="content">
+      <img id="icon" src="img/welcome.png" alt="Welcome">
+    </section>
+
+    <section id="requirements">
+      
+      <h3 id="req">Requirements</h3> <h4 id="check">checking...</h4>
+
+      <div class="row">
+
+        <div id="collumnleft">
+
+          <div class="span1" id="checked">
+            <li><img class="checked" src="img/checked.png" alt="checked"></li>
+            <li><img class="checked" src="img/checked.png" alt="checked"></li>
+            <li><img class="cross" src="img/cross.png" alt="unavailable"></li>
+            <li><img class="checked" src="img/checked.png" alt="checked"></li>
+          </div>
+
+          <div class="span2">
+            <li>MySql module</li>
+            <li>Curl</li>
+            <li>Exec</li>
+            <li>Mod rewrite apache</li>
+          </div>
+        
+        </div>
+
+        <div id="collumnright">
+
+          <div class="span1" id="checked2">
+            <li><img class="checked" src="img/checked.png" alt="checked"></li>
+          </div>
+
+          <div class="span2">
+            <li>Git</li>
+            <li>Composer installed</li>
+            <li>Writable map</li>
+          </div>
+
+        </div>
+
+      </div>
+
+      <a class="btn" id="start" href="index.php">START</a>
+
+      <!--<a href="packages.html" title="Start">
+        <div class="button" id="start">
+          START
+        </div>
+      </a>-->
+
+    </section>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
