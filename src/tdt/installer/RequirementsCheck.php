@@ -10,7 +10,7 @@ namespace tdt\installer;
  */
 class RequirementsCheck
 {
-    public function getResult()
+    public function getResult($session)
     {
         $result = array();
         $result['Directory writable'] = $this->directoryIsWritable();
@@ -20,7 +20,7 @@ class RequirementsCheck
         $result['PHP exec enabled'] = $this->phpFunctionExists('exec');
         $result['mod_rewrite enabled'] = $this->apacheModuleEnabled('mod_rewrite');
         $result['Git installed'] = $this->gitInstalled();
-        $result['Composer in PATH'] = $this->composerInstalled();
+        $result['Composer in PATH'] = $this->composerInstalled($session);
         
         return $result;
     }
@@ -62,16 +62,16 @@ class RequirementsCheck
      * It uses the PHP exec function.
      * @return boolean
      */
-    private function composerInstalled()
+    private function composerInstalled($session)
     {
         $output = exec('which composer');
         if(file_exists($line = trim($output))) {
-            $this->writeComposerInfo('composer');
+            $session->set('composer', 'composer');
             return true;
         } else {
             $output = exec('which composer.phar');
             $result = file_exists($line = trim($output));
-            $this->writeComposerInfo('composer.phar');
+            $session->set('composer', 'composer.phar');
             return $result;
         }
     }
@@ -105,18 +105,5 @@ class RequirementsCheck
         $dir = $_SERVER['DOCUMENT_ROOT'] . $dir;*/
 
         return is_writable('.') && is_writable('..');
-    }
-    
-        
-    /**
-     * Writes the name of the composer executable to the temp.json file.
-     */
-    private function writeComposerInfo($info)
-    {
-        $tempFile = 'settings/temp.json';
-    
-        $tempsettings = json_decode(file_get_contents($tempFile));
-        $tempsettings->composer = $info;
-        file_put_contents($tempFile, json_encode($tempsettings));
     }
 }

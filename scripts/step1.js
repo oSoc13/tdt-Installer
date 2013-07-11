@@ -20,8 +20,6 @@ $( document ).ready(function() {
             $("#output").empty();
             
             $.each( data, function(key, value) {
-                //alert( "Name: " + i + ", Value: " + n );
-                
                 var output = "<p>";
                 output += key;
                 output += ": ";

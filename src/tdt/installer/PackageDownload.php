@@ -10,14 +10,14 @@ namespace tdt\installer;
  */
 class PackageDownload
 {
-    public function start()
+    public function start($session)
     {
         $outputfile = "settings/composeroutput.json";
         $composerFile = '../composer.json';
         
-        $tempsettings = json_decode(file_get_contents('settings/temp.json'));
+        //$tempsettings = json_decode(file_get_contents('settings/temp.json'));
         
-        $command = $tempsettings->composer.' update -d .. 2>&1';
+        $command = $session->get('composer').' update -d .. 2>&1';
         $descriptorspec = array(
             0 => array("pipe", "r"),   // stdin is a pipe that the child will read from
             1 => array("pipe", "w"),   // stdout is a pipe that the child will write to

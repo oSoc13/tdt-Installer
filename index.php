@@ -136,7 +136,7 @@ $app->get('/finish', function() use ($app) {
 $app->get('/requirements', function () use ($app) {
     $requirementCheck = new tdt\installer\RequirementsCheck();
     
-    return $app->json($requirementCheck->getResult());
+    return $app->json($requirementCheck->getResult($app['session']));
 });
 
 $app->get('/gitclone', function () use ($app) {
@@ -145,10 +145,10 @@ $app->get('/gitclone', function () use ($app) {
     return $app->json($gitcloner->getResult());
 });
 
-$app->get('/packagedownload', function () {
+$app->get('/packagedownload', function () use ($app) {
     $packageDownload = new tdt\installer\PackageDownload();
     
-    return $packageDownload->start();
+    return $packageDownload->start($app['session']);
 });
 
 $app->post('/packageselection', function (Request $request) {

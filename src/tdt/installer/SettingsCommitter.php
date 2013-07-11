@@ -48,7 +48,7 @@ class SettingsCommitter
         
         $host = $dbconfig->host;
         $user = $dbconfig->user;
-        $name = $dbconfig->name;
+        $name = str_replace('`', '\'', $dbconfig->name);
         $password = $dbconfig->password;
         
         $dsn = "mysql:host={$host}";
@@ -58,19 +58,21 @@ class SettingsCommitter
             $dbh = new \PDO($dsn, 'root', $session->get('dbrootpassword'));
             
             if($session->get('dbinstalldefault') || $session->get('dbnewdb')) {
-                $dbh->query("create database ". $name);
+                $dbh->exec("create database `{$name}`");
             }
             
             if($session->get('dbinstalldefault') || $session->get('dbnewuser')) {
-                $dbh->query("create user '".$user."'@'localhost' identified by '".$password."'");
+                $stmt = $dbh->prepare("create user ?@? identified by ?");
+                $stmt->execute(array($user, $host, $password));
             }
             
-            $dbh->query("grant all on ".$name.".* to '".$user."'@'localhost'");
+            $stmt = $dbh->prepare("grant all on `{$name}`.* to ?@?");
+            $stmt->execute(array($user, $host));
         }
         catch (\PDOException $e)
         {
-            var_dump($session->get('dbrootpassword'));
-            var_dump($e);
+            //var_dump($session->get('dbrootpassword'));
+            //var_dump($e);
         }
     }
 }
