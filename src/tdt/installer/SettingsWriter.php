@@ -14,7 +14,6 @@ class SettingsWriter
     {
         foreach($data as $key => $value)
         {
-            //if ($value === null) $value = "";
             $session->set($key, $value);
         }
     }

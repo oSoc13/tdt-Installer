@@ -34,7 +34,7 @@ class GeneralSettingsElementBuilder
             case 2:
                 $formBuilder->add('hostname', 'text', array(
                         'label' => 'Hostname',
-                        'data' => gethostname(),
+                        'data' => $this->findDatatankHostname(),
                     ));
                 $formBuilder->add('subdir', 'text', array(
                         'label' => 'Subdirectory',
@@ -79,6 +79,20 @@ class GeneralSettingsElementBuilder
         }
         
         return $formBuilder;
+    }
+    
+    /**
+     * Finds the hostname of the machine the installer is running on, including
+     * the protocol, e.g. http://example.com/
+     * @return string 
+     */
+    private function findDatatankHostname()
+    {
+        $httpsOn = isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"]==="on" || $_SERVER["HTTPS"]===1 || $_SERVER["SERVER_PORT"]===443);
+        $result = $httpsOn ? "https://" : "http://";
+        $result .= gethostname();
+        $result .= "/";
+        return $result;
     }
     
     /**
