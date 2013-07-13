@@ -12,7 +12,7 @@ class DatabaseSettingsElementBuilder
 {
     const numberOfSteps = 4;
 
-    public function addElements($step, $formBuilder) 
+    public function addElements($step, $formBuilder, $session) 
     {
         switch($step)
         {
@@ -83,10 +83,16 @@ class DatabaseSettingsElementBuilder
                         'data' => true,
                         'required' => false,
                     ));
-                $formBuilder->add('dbrootpassword', 'password', array(
-                        'label' => 'Root password',
-                        'required' => false,
-                    ));
+                    
+                // If we have new user information (from the previous step), we also
+                // already have the root password, so we don't need to ask for it again!
+                if($session->get('dbnewuser') === false) {
+                    $formBuilder->add('dbrootpassword', 'password', array(
+                            'label' => 'Root password',
+                            'required' => false,
+                        ));
+                }
+                
                 $formBuilder->add('dbnewname', 'text', array(
                         'label' => 'New database name',
                         'required' => false,

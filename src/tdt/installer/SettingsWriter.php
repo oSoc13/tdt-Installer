@@ -3,7 +3,7 @@
 namespace tdt\installer;
 
 /**
- * Writes input to the session.
+ * Writes input data to the session.
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
@@ -14,6 +14,7 @@ class SettingsWriter
     {
         foreach($data as $key => $value)
         {
+            //if ($value === null) $value = "";
             $session->set($key, $value);
         }
     }

@@ -14,18 +14,18 @@ class DatabaseSettingsWriter
     
     public function writeDatabaseData($session)
     {
-        $oldDbSettingsFile = $this->configPath."db.example.json";
+        //$oldDbSettingsFile = $this->configPath."db.example.json";
         $dbSettingsFile = $this->configPath."db.json";
-        copy($oldDbSettingsFile, $dbSettingsFile);
+        //copy($oldDbSettingsFile, $dbSettingsFile);
         
-        $dbSettings = array(); //json_decode(file_get_contents($dbSettingsFile));
+        $dbSettings = array();
         
         if($session->get("dbinstalldefault")) {
             $dbSettings["system"] = "mysql";
             $dbSettings["host"] = "localhost";
             $dbSettings["name"] = "datatank".$session->get("company");
-            $dbSettings["password"] = "datatank";
-            $dbSettings["user"] = "datatank";
+            $dbSettings["password"] = "testuser";//"datatank";
+            $dbSettings["user"] = "testuser";//"datatank";
         } else {
             $dbSettings["system"] = $session->get("dbsystem");
             $dbSettings["host"] = $session->get("dbhost");

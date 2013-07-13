@@ -19,10 +19,8 @@ class SettingsCommitter
         
         // We need to mess with the database if the user chose the default settings,
         // or if the user wanted to create a new user or new database.
-        // We also cannot make a connection if the root password is not set.
-        $databasecreationNeeded = (($session->get('dbinstalldefault')) ||
-            $session->get('dbnewuser') || $session->get('dbnewdb')) &&
-            $session->get('dbrootpassword') !== NULL;
+        $databasecreationNeeded = ($session->get('dbinstalldefault')) ||
+            $session->get('dbnewuser') || $session->get('dbnewdb');
         
         if($databasecreationNeeded) {
             $this->createDatabase($session);

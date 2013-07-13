@@ -57,7 +57,7 @@ $app->match('/config', function (Request $request) use ($app) {
     
     $page = "configtemplate.html";
     
-    $formBuilder = $app['form.factory']->createBuilder('form', array());
+    $formBuilder = $app['form.factory']->createBuilder('form');
     $elementBuilder->addElements($step, $formBuilder);
     $form = $formBuilder->getForm();
     
@@ -68,19 +68,20 @@ $app->match('/config', function (Request $request) use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            //$configSetter = new tdt\installer\GeneralSettingsWriter();
-            //$configSetter->writeGeneralData($data);
             $settingsWriter = new tdt\installer\SettingsWriter();
             $settingsWriter->writeData($data, $app['session']);
             
-            if($step + 1 > $elementBuilder::numberOfSteps) $redirectPage = dirname($_SERVER['REQUEST_URI']).'/db';
-            else $redirectPage = dirname($_SERVER['REQUEST_URI']).'/config?step='.($step + 1);
+            if($step + 1 > $elementBuilder::numberOfSteps) $redirectPage = 'db';
+            else $redirectPage = 'config?step='.($step + 1);
 
             return $app->redirect($redirectPage);
         }
     }
         
-    return $app['twig']->render($page, array('form' => $form->createView()));
+    return $app['twig']->render($page, array(
+        'form' => $form->createView(),
+        'currentStep' => $step
+    ));
 });
 
 $app->match('/db', function (Request $request) use ($app) {
@@ -94,8 +95,8 @@ $app->match('/db', function (Request $request) use ($app) {
     
     $page = "dbtemplate.html";
     
-    $formBuilder = $app['form.factory']->createBuilder('form', array());
-    $elementBuilder->addElements($step, $formBuilder);
+    $formBuilder = $app['form.factory']->createBuilder('form');
+    $elementBuilder->addElements($step, $formBuilder, $app['session']);
     $form = $formBuilder->getForm();
     
     
@@ -105,19 +106,23 @@ $app->match('/db', function (Request $request) use ($app) {
         if ($form->isValid()) {
             $data = $form->getData();
 
-            //$configSetter = new tdt\installer\DatabaseSettingsWriter();
-            //$configSetter->writeGeneralData($data);
             $settingsWriter = new tdt\installer\SettingsWriter();
             $settingsWriter->writeData($data, $app['session']);
             
-            if($step + 1 > $elementBuilder::numberOfSteps) $redirectPage = dirname($_SERVER['REQUEST_URI']).'/finish';
-            else $redirectPage = dirname($_SERVER['REQUEST_URI']).'/db?step='.($step + 1);
+            if($step + 1 > $elementBuilder::numberOfSteps || $app['session']->get('dbinstalldefault')) {
+                $redirectPage = 'finish';
+            } else {
+                $redirectPage = 'db?step='.($step + 1);
+            }
 
             return $app->redirect($redirectPage);
         }
     }
         
-    return $app['twig']->render($page, array('form' => $form->createView()));
+    return $app['twig']->render($page, array(
+        'form' => $form->createView(),
+        'currentStep' => $step
+    ));
 });
 
 $app->get('/finish', function() use ($app) {
