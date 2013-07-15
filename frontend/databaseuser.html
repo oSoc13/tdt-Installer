@@ -1,0 +1,74 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+	<section class="title clearfix">	
+		<h3 class="hbig">Databank</h3>
+		<h3 class="hsmall">settings</h3>
+	</section>
+
+	<h5 class="advancedset">Advanced Settings Step 2/3</h5>
+
+	<section class="formbox">
+            <form action="#" method="post" id="configform">
+		<label class="radio">
+		  <input class="radiodot" type="radio" name="dbusersetting" id="dbnewuser" value="new" checked>
+		  <h6>New user</h6>
+		</label>
+
+		<div class="rootpw" id="newusersettings">
+
+			<div class="span2" id="labels">
+				<label class="label clearfix" for="dbrootpassword" class="rpwlabel"> Root Password </label>
+				<label class="label clearfix" for="dbnewusername" class="rpwlabel"> Username </label>
+				<label class="label clearfix" for="dbnewpassword" class="rpwlabel"> New Password </label>
+				<label class="label clearfix" for="dbconfirmpassword" class="rpwlabel"> Confirm Password </label>
+			</div>
+
+			<div class="span5" id="labels">
+				<input  class="span5" type="password" id="dbrootpassword" name="dbrootpassword" />	
+				<input  class="span5" type="text" id="dbnewusername" name="dbnewusername" />	
+				<input  class="span5" type="password" id="dbnewpassword" name="dbnewpassword" />			
+				<input  class="span5" type="password" id="dbconfirmpassword" name="dbconfirmpassword" />
+			</div>
+		
+		</div>
+
+		<label class="radio" id="euser">
+		  <input class="radiodot" type="radio" name="dbusersetting" id="dbexistinguser" value="existing">
+		  <h6>Existing user</h6>
+		</label>
+		
+		<div class="rootpw" id="existingusersettings">
+		
+                    <div class="span2" id="labels">
+                            <label class="label clearfix" for="dbuser" id="rpwlabel"> Username </label>
+                            <label class="label clearfix" for="dbpassword" id="rpwlabel"> Password </label>
+                    </div>
+
+                    <div class="span5" id="labels">
+                            <input  class="span5" type="text" id="dbuser" name="dbuser" />  
+                            <input  class="span5" type="password" id="dbpassword" name="dbpassword" />  
+                    </div>
+                
+                </div>
+            </form>
+	</section>
+        
+    <div class="buttons clearfix">
+        
+        {% if hasnextpage %}
+        <a class="btn" id="next">NEXT</a>
+        {% endif %}
+        
+        {% if haspreviouspage %}
+        <a class="btn" id="back" href="index.php?page={{ currentpage - 1 }}">BACK</a>
+        {% endif %}
+    </div>
+        
+{% endblock %}
+
+{% block scripts %}
+    <script src="scripts/FormSubmit.js"></script>
+    <script src="scripts/DatabaseUser.js"></script>
+{% endblock %}

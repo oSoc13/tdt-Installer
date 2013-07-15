@@ -1,0 +1,59 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+	<section class="title clearfix">	
+		<h3 class="hbig">General</h3>
+		<h3 class="hsmall">settings</h3>
+	</section>
+	
+	
+	
+	<section class="formbox">
+            
+            <form action="#" method="post" id="configform">
+		<div class="span2" id="labels">
+			<label class="label" for="company"> Company </label>
+			<label class="label" for="timezone"> Timezone </label>
+			<label class="label" for="language"> Language </label>
+		</div>
+
+		<div class="span5" id="boxen">
+			
+			<input class="box" type="text" id="company" name="company" />
+		
+			<select class="box" id="timezone" name="timezone">
+                            {% for zone in timezones %}
+                                <option value="{{ zone }}" {% if zone == currenttimezone %} selected {% endif %}>{{ zone }}</option>
+                            {% endfor %}
+			</select>
+		
+			<select class="box" id="language" name="defaultlanguage">
+                            {% for key,language in languages %}
+                                <option value="{{ key }}">{{ language }}</option>
+                            {% endfor %}
+			</select>
+		</div>
+		
+            </form>
+
+	</section>
+	
+	
+    
+    <div class="buttons clearfix">
+        
+        {% if hasnextpage %}
+        <a class="btn" id="next">NEXT</a>
+        {% endif %}
+        
+        {% if haspreviouspage %}
+        <a class="btn" id="back" href="index.php?page={{ currentpage - 1 }}">BACK</a>
+        {% endif %}
+    </div>
+	
+{% endblock %}
+
+{% block scripts %}
+    <script src="scripts/FormSubmit.js"></script>
+{% endblock %}

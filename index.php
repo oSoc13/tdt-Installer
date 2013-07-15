@@ -8,7 +8,6 @@
  */
 
 use Symfony\Component\HttpFoundation\Request;
-use Silex\Provider\FormServiceProvider;
 
 $loader = require_once __DIR__.'/vendor/autoload.php';
 $loader->add('tdt\\installer\\', __DIR__.'/src');
@@ -18,124 +17,46 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 $app->register(new Silex\Provider\SessionServiceProvider());
-$app->register(new FormServiceProvider());
+/*$app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'translator.messages' => array(),
-));
+));*/
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/views',
+    'twig.path' => __DIR__.'/frontend',
 ));
 
 $app->before(function (Request $request) {
     $request->getSession()->start();
 });
 
-$app->get('/', function (Request $request) use ($app) {
-    
+$wizardSteps = array('Requirements', 'InitialDownload', 'Packages', 'PackageDownload',
+    'General', 'Host', 'Logging', 'Cache', 'Database', 'DatabaseAdvanced', 'DatabaseUser',
+    'DatabaseDb', 'Finish');
+
+$app->match('/', function (Request $request) use ($app, $wizardSteps) {
     $getParams = $request->query->all();
+    if(array_key_exists('page', $getParams)) $step = $getParams['page'];
+    else $step = 0;
     
-    if(array_key_exists('step', $getParams)) $step = $getParams['step'];
-    else $step = 1;
+    $page = strtolower($wizardSteps[$step].'.html');
+    $className = 'tdt\\installer\\wizardsteps\\' . $wizardSteps[$step];
+    $class = new $className();
     
-    $page ="step.html";
+    $pagevariables = array();
+    $pagevariables['currentpage'] = $step;
+    $pagevariables['hasnextpage'] = $step <= count($wizardSteps) - 1;
+    $pagevariables = array_merge($pagevariables, $class->getPageContent($app['session']));
     
-    return $app['twig']->render($page, array(
-        'currentStep' => $step
-    ));
-});
-
-//TODO The /config and /db routes have the same structure, so it should be possible
-// to put the functionality in a seperate class/method
-$app->match('/config', function (Request $request) use ($app) {
-   
-    $elementBuilder = new tdt\installer\GeneralSettingsElementBuilder();
-     
-    $getParams = $request->query->all();
-    
-    if(array_key_exists('step', $getParams)) $step = $getParams['step'];
-    else $step = 1;
-    
-    $page = "configtemplate.html";
-    
-    $formBuilder = $app['form.factory']->createBuilder('form');
-    $elementBuilder->addElements($step, $formBuilder);
-    $form = $formBuilder->getForm();
-    
-    
-    if ('POST' == $request->getMethod()) {
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $data = $form->getData();
-
-            $settingsWriter = new tdt\installer\SettingsWriter();
-            $settingsWriter->writeData($data, $app['session']);
-            
-            if($step + 1 > $elementBuilder::numberOfSteps) $redirectPage = 'db';
-            else $redirectPage = 'config?step='.($step + 1);
-
-            return $app->redirect($redirectPage);
-        }
-    }
+    if($request->getMethod() == 'POST') {
+        $class->writeData($request, $app['session']);
         
-    return $app['twig']->render($page, array(
-        'form' => $form->createView(),
-        'currentStep' => $step
-    ));
-});
-
-$app->match('/db', function (Request $request) use ($app) {
-
-    $elementBuilder = new tdt\installer\DatabaseSettingsElementBuilder();
-     
-    $getParams = $request->query->all();
-    
-    if(array_key_exists('step', $getParams)) $step = $getParams['step'];
-    else $step = 1;
-    
-    $page = "dbtemplate.html";
-    
-    $formBuilder = $app['form.factory']->createBuilder('form');
-    $elementBuilder->addElements($step, $formBuilder, $app['session']);
-    $form = $formBuilder->getForm();
-    
-    
-    if ('POST' == $request->getMethod()) {
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $data = $form->getData();
-
-            $settingsWriter = new tdt\installer\SettingsWriter();
-            $settingsWriter->writeData($data, $app['session']);
-            
-            if($step + 1 > $elementBuilder::numberOfSteps || $app['session']->get('dbinstalldefault')) {
-                $redirectPage = 'finish';
-            } else {
-                $redirectPage = 'db?step='.($step + 1);
-            }
-
-            return $app->redirect($redirectPage);
-        }
-    }
+        $redirectPage = $app['session']->get('dbinstalldefault') === true ? count($wizardSteps) - 1 : ($step + 1);
         
-    return $app['twig']->render($page, array(
-        'form' => $form->createView(),
-        'currentStep' => $step
-    ));
-});
-
-$app->get('/finish', function() use ($app) {
-    $generalSettingsWriter = new tdt\installer\GeneralSettingsWriter();
-    $generalSettingsWriter->writeGeneralData($app['session']);
+        return $app->redirect('?page='.$redirectPage);
+    }
     
-    $dbSettingsWriter = new tdt\installer\DatabaseSettingsWriter();
-    $dbSettingsWriter->writeDatabaseData($app['session']);
-    
-    $settingsCommitter = new tdt\installer\SettingsCommitter();
-    $settingsCommitter->commit($app['session']);
-    
-    return "Finished";
+    return $app['twig']->render($page, $pagevariables);
 });
 
 $app->get('/requirements', function () use ($app) {
@@ -151,12 +72,12 @@ $app->get('/gitclone', function () use ($app) {
 });
 
 $app->get('/packagedownload', function () use ($app) {
-    $packageDownload = new tdt\installer\PackageDownload();
+    $packageDownloader = new tdt\installer\PackageDownloader();
     
-    return $packageDownload->start($app['session']);
+    return $packageDownloader->start($app['session']);
 });
 
-$app->post('/packageselection', function (Request $request) {
+$app->post('/packageselection', function (Request $request) use ($app) {
     $packageSelection = new tdt\installer\PackageSelection();
     
     $packages = array();
@@ -166,7 +87,9 @@ $app->post('/packageselection', function (Request $request) {
         $packages[] = $package;
     }
     
-    return $packageSelection->writeData($packages);
+    $packageSelection->writeData($packages);
+    
+    return $app->redirect('?page=3');
 });
 
 $app->run();

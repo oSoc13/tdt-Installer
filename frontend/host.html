@@ -1,0 +1,70 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+	<section class="title clearfix">	
+		<h3 class="hbig">Host</h3>
+		<h3 class="hsmall">settings</h3>
+	</section>
+	
+	
+	
+	<section class="formbox">
+            <form action="#" method="post" id="configform">
+		<div class="span2" id="labels">
+			<label class="label" for="hostname"> Hostname </label>
+			<label class="label" for="subdir"> Subdirectory </label>
+			<label class="label" for="defaultformat" > Default format </label>
+		</div>
+
+		<div class="span5" id="boxen">
+			
+			<input class="span5" type="text" id="hostname" name="hostname" value="{{ hostname }}" />
+			<input class="span5" type="text" id="subdir" name="subdir" value="{{ subdir }}" />
+			<select class="box" id="defaultformat" name="defaultformat">
+			  <option value="json" selected>JSON</option>
+			  <option value="xml">XML</option>
+			</select>
+
+		</div>
+
+		<div class="span1" id="info">
+
+			<div id="one">
+				<img id="first" class="info" src="frontend/img/info.png" alt="info">
+    			<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+			</div>
+
+			<div id="one">
+				<img class="info" src="frontend/img/info.png" alt="info">
+				<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+			</div>
+
+			<div id="one">
+				<img id="last" class="info" src="frontend/img/info.png" alt="info">
+				<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+			</div>
+		</div>
+		
+            </form>
+
+	</section>
+        
+        
+    
+    <div class="buttons clearfix">
+        
+        {% if hasnextpage %}
+        <a class="btn" id="next">NEXT</a>
+        {% endif %}
+        
+        {% if haspreviouspage %}
+        <a class="btn" id="back" href="index.php?page={{ currentpage - 1 }}">BACK</a>
+        {% endif %}
+    </div>
+        
+{% endblock %}
+
+{% block scripts %}
+    <script src="scripts/FormSubmit.js"></script>
+{% endblock %}

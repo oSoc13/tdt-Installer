@@ -1,0 +1,38 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+	<section id="packtitle">
+		<h3  id="packsmall">Select</h3>
+		<h3  id="packbig">Packages</h3>
+	</section>
+
+	<form action="#" method="post" id="configform">
+	
+            <div id="packlist">
+                {% for package in packages %}
+                    <section class="packages">
+                            <input type="checkbox" class="c" id="{{ package.value }}" value="{{ package.value }}" name="packages[]" {% if package.name == 'Core' %} readonly checked {% endif %}/>
+                            <label for="{{ package.value }}"> {{ package.name }} </label>
+                            <span class="help-block">{{ package.description }}</span>
+                    </section>
+                {% endfor %}
+            </div>
+            
+	</form>
+    
+    <div>
+        {% if haspreviouspage %}
+        <a class="btn" id="back" href="?page=packages">BACK</a>
+        {% endif %}
+        
+        {% if hasnextpage %}
+        <a class="btn" id="next">NEXT</a>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="scripts/FormSubmit.js"></script>
+{% endblock %}

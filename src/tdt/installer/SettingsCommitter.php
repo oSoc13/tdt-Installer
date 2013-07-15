@@ -70,7 +70,7 @@ class SettingsCommitter
         catch (\PDOException $e)
         {
             //var_dump($session->get('dbrootpassword'));
-            //var_dump($e);
+            var_dump($e);
         }
     }
 }

@@ -1,0 +1,26 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+
+	<section id="contentsum">
+
+      <img class="span5" id="grats" src="frontend/img/congrats.png" alt="Congratulations">
+	
+		<section id="Summary">
+
+			<h4 id="Stitle">Summary</h4>
+
+		          <div class="span2">
+                            <ul>
+		            {% for key, value in sessiondata %}
+		            <li>{{ key }}: {{ value }}</li>
+		            {% endfor %}
+		            </ul>
+		          </div>
+		        
+	    </section>
+    </section>		
+	
+
+{% endblock %}

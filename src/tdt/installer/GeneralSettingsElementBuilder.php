@@ -2,6 +2,8 @@
 
 namespace tdt\installer;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Adds general settings input controls to a FormBuilder
  *
@@ -19,6 +21,9 @@ class GeneralSettingsElementBuilder
             case 1:
                 $formBuilder->add('company', 'text', array(
                         'label' => 'Company',
+                        'constraints' => array(
+                                new Assert\NotBlank(),
+                            ),
                     ));
                 $formBuilder->add('timezone', 'timezone', array(
                         'expanded' => false,
@@ -35,10 +40,24 @@ class GeneralSettingsElementBuilder
                 $formBuilder->add('hostname', 'text', array(
                         'label' => 'Hostname',
                         'data' => $this->findDatatankHostname(),
+                        'constraints' => array(
+                            new Assert\Regex(array(
+                                'pattern' => '/^(https?:\/\/).+\/$/',
+                                'message' => 'The hostname has to look like "http(s)://example.com/"',
+                                )),
+                            new Assert\NotBlank(),
+                            ),
                     ));
                 $formBuilder->add('subdir', 'text', array(
                         'label' => 'Subdirectory',
                         'data' => $this->getSubDirectory(),
+                        'constraints' => array(
+                            new Assert\Regex(array(
+                                'pattern' => '/^.+\/$/',
+                                'message' => 'The sub directory has to end with a forward slash.',
+                                )),
+                            new Assert\NotBlank(),
+                            ),
                     ));
                 $formBuilder->add('defaultformat', 'choice', array(
                         'label' => 'Default format',
@@ -49,10 +68,14 @@ class GeneralSettingsElementBuilder
                 $formBuilder->add('accesslogapache', 'text', array(
                         'label' => 'Apache access log',
                         'data' => '/var/log/apache2/access.log',
+                        'constraints' => array(
+                                new Assert\NotBlank(),
+                            ),
                     ));
                 $formBuilder->add('logenabled', 'checkbox', array(
                         'label' => 'Logging',
                         'required' => false,
+                        'data' => true,
                     ));
                 $formBuilder->add('logpath', 'text', array(
                         'label' => 'Log path',
@@ -72,6 +95,9 @@ class GeneralSettingsElementBuilder
                 $formBuilder->add('cacheport', 'text', array(
                         'label' => 'Port',
                         'data' => '11211',
+                        'constraints' => array(
+                                new Assert\Range(array('min' => 0, 'max' => 65535)),
+                            ),
                     ));
                 break;
             default:

@@ -1,26 +1,35 @@
 <?php
 
-namespace tdt\installer;
+namespace tdt\installer\wizardsteps;
 
 /**
- * Checks if the requirements for the Datatank are met.
+ * Class for the requirements check step of the installer
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class RequirementsCheck
+class Requirements implements WizardStep
 {
-    public function getResult($session)
+    public function getPageContent($session)
     {
         $result = array();
-        $result['Directory writable'] = $this->directoryIsWritable();
-        $result['MySQL enabled'] = $this->phpModuleEnabled('pdo_mysql');
-        $result['Correct MySQL version'] = $this->mysqlVersionIsCorrect();
-        $result['curl loaded'] = $this->phpModuleEnabled('curl');
-        $result['PHP exec enabled'] = $this->phpFunctionExists('exec');
-        $result['mod_rewrite enabled'] = $this->apacheModuleEnabled('mod_rewrite');
-        $result['Git installed'] = $this->gitInstalled();
-        $result['Composer in PATH'] = $this->composerInstalled($session);
+        $result['writable'] = $this->directoryIsWritable();
+        $result['mysqlenabled'] = $this->phpModuleEnabled('pdo_mysql');
+        $result['mysqlversionok'] = $this->mysqlVersionIsCorrect();
+        $result['curl'] = $this->phpModuleEnabled('curl');
+        $result['exec'] = $this->phpFunctionExists('exec');
+        $result['modrewrite'] = $this->apacheModuleEnabled('mod_rewrite');
+        $result['git'] = $this->gitInstalled();
+        $result['composer'] = $this->composerInstalled($session);
+        
+        $requirementsOk = true;
+        
+        foreach($result as $check)
+        {
+            $requirementsOk = $requirementsOk & $check;
+        }
+        
+        $result['requirementsok'] = $requirementsOk;
         
         return $result;
     }

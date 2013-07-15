@@ -1,0 +1,48 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+
+	<section class="title clearfix">	
+		<h3 class="hbig">Databank</h3>
+		<h3 class="hsmall">settings</h3>
+	</section>
+	
+	
+	
+	<section class="formbox">
+            <form action="#" method="post" id="configform">
+		<label class="radio">
+		  <input class="radiodot" type="radio" name="dbinstall" id="dbinstalldefault" value="default" checked />
+		  <h6>Default</h6>
+		</label>
+
+		<div class="rootpw">
+			<label class="label" for="dbrootpassword" class="rpwlabel"> Root Password </label>
+			<input class="span5" type="password" id="dbrootpassword" name="dbrootpassword" />
+		</div>
+
+		<label class="radio">
+		  <input class="radiodot" type="radio" name="dbinstall" id="dbinstalladvanced" value="advanced" />
+		  <h6>Advanced</h6>
+		</label>
+            </form>
+	</section>
+	
+    <div class="buttons clearfix" id="databankbtn">
+        
+        {% if hasnextpage %}
+        <a class="btn" id="next">NEXT</a>
+        {% endif %}
+        
+        {% if haspreviouspage %}
+        <a class="btn" id="back" href="index.php?page={{ currentpage - 1 }}">BACK</a>
+        {% endif %}
+    </div>
+        
+{% endblock %}
+
+{% block scripts %}
+    <script src="scripts/FormSubmit.js"></script>
+    <script src="scripts/Database.js"></script>
+{% endblock %}

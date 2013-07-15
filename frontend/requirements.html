@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>The Datatank Installer</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Bootstrap -->
+    <link href="frontend/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="frontend/css/main.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    
+    <header align="center">
+      <img id="icon" src="frontend/img/tdt_icon.png" alt="icon">
+    </header>
+
+    <section align="center" id="content">
+      <img id="icon" src="frontend/img/welcome.png" alt="Welcome">
+    </section>
+
+    <section id="requirements">
+      
+      <h3 id="req">Requirements</h3>
+      
+      <div class="row">
+
+        <div id="collumnleft">
+
+          <div class="span1" id="checked">
+            <li><img class="{{ mysqlenabled ? 'checked' : 'cross' }}" src="frontend/img/{{ mysqlenabled ? 'checked' : 'cross' }}.png" alt="{{ mysqlenabled ? 'checked' : 'cross' }}"></li>
+            <li><img class="{{ mysqlversionok ? 'checked' : 'cross' }}" src="frontend/img/{{ mysqlversionok ? 'checked' : 'cross' }}.png" alt="{{ mysqlversionok ? 'checked' : 'cross' }}"></li>
+            <li><img class="{{ curl ? 'checked' : 'cross' }}" src="frontend/img/{{ curl ? 'checked' : 'cross' }}.png" alt="{{ curl ? 'checked' : 'cross' }}"></li>
+            <li><img class="{{ exec ? 'checked' : 'cross' }}" src="frontend/img/{{ exec ? 'checked' : 'cross' }}.png" alt="{{ exec ? 'checked' : 'cross' }}"></li>
+          </div>
+
+          <div class="span2">
+            <li>PHP MySQL module</li>
+            <li>MySQL version</li>
+            <li>Curl</li>
+            <li>PHP exec</li>
+          </div>
+        
+        </div>
+
+        <div id="collumnright">
+
+          <div class="span1" id="checked2">
+            <li><img class="{{ modrewrite ? 'checked' : 'cross' }}" src="frontend/img/{{ modrewrite ? 'checked' : 'cross' }}.png" alt="{{ modrewrite ? 'checked' : 'cross' }}"></li>
+            <li><img class="{{ git ? 'checked' : 'cross' }}" src="frontend/img/{{ git ? 'checked' : 'cross' }}.png" alt="{{ git ? 'checked' : 'cross' }}"></li>
+            <li><img class="{{ composer ? 'checked' : 'cross' }}" src="frontend/img/{{ composer ? 'checked' : 'cross' }}.png" alt="{{ composer ? 'checked' : 'cross' }}"></li>
+            <li><img class="{{ writable ? 'checked' : 'cross' }}" src="frontend/img/{{ writable ? 'checked' : 'cross' }}.png" alt="{{ writable ? 'checked' : 'cross' }}"></li>
+          </div>
+
+          <div class="span2">
+            <li>Apache mod_rewrite</li>
+            <li>Git</li>
+            <li>Composer in PATH</li>
+            <li>Writable directory</li>
+          </div>
+
+        </div>
+
+      </div>
+    
+      {% if requirementsok %}
+      <a class="btn" id="start" href="?page={{ currentpage + 1 }}">START</a>
+
+      <!--<a href="packages.html" title="Start">
+        <div class="button" id="start">
+          START
+        </div>
+      </a>-->
+      {% endif %}
+
+    </section>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="frontend/js/bootstrap.min.js"></script>
+  </body>
+</html>

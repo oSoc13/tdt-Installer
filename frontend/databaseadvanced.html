@@ -1,0 +1,59 @@
+{% extends 'template.html' %}
+
+{% block content %}
+
+	<section class="title clearfix">	
+		<h3 class="hbig">Databank</h3>
+		<h3 class="hsmall">settings</h3>
+	</section>
+
+	<h5 class="advancedset">Advanced Settings Step 1/3</h5>
+	
+	<section class="formbox">
+            <form action="#" method="post" id="configform">
+		<div class="span2" id="labels">
+			<label class="label" for="dbsystem"> System </label>
+			<label class="label" for="dbhost"> Host </label>
+		</div>
+
+		<div class="span5" id="boxen">
+			
+			<select class="box" id="dbsystem">
+                            <option value="mysql">MySQL</option>
+			</select>
+		
+			<input class="box" type="text" id="dbhost" name="dbhost" value="{{ dbhost }}">	
+		</div>
+
+		<div class="span1" id="info">
+
+			<div id="one">
+				<img id="first" class="info" src="frontend/img/info.png" alt="info">
+    			<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+			</div>
+
+			<div id="one">
+				<img class="info" id="helpicon" src="frontend/img/info.png" alt="info">
+				<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+			</div>
+
+		</div>
+            </form>
+	</section>
+        
+    <div class="buttons clearfix">
+        
+        {% if hasnextpage %}
+        <a class="btn" id="next">NEXT</a>
+        {% endif %}
+        
+        {% if haspreviouspage %}
+        <a class="btn" id="back" href="index.php?page={{ currentpage - 1 }}">BACK</a>
+        {% endif %}
+    </div>
+        
+{% endblock %}
+
+{% block scripts %}
+    <script src="scripts/FormSubmit.js"></script>
+{% endblock %}
