@@ -21,8 +21,10 @@
 			<select class="box" id="dbsystem">
                             <option value="mysql">MySQL</option>
 			</select>
+			{% if validationError and systemError %} <p>System should be MySQL.</p> {% endif %}
 		
-			<input class="box" type="text" id="dbhost" name="dbhost" value="{{ dbhost }}">	
+			<input class="box" type="text" id="dbhost" name="dbhost" value="{{ dbhost }}">
+			{% if validationError and hostError %} <p>There's something wrong with your hostname.</p> {% endif %}
 		</div>
 
 		<div class="span1" id="info">

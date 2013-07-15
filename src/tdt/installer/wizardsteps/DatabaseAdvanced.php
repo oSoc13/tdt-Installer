@@ -15,7 +15,7 @@ class DatabaseAdvanced implements WizardStep
         return array(
             'haspreviouspage' => true,
             'dbsystemchoices' => $this->getDatabaseChoices(),
-            'dbhost' => 'localhost',
+            'dbhost' => $session->get('dbhost') !== null ? $session->get('dbhost') : 'localhost',
         );
     }
     
@@ -31,7 +31,17 @@ class DatabaseAdvanced implements WizardStep
         $settingsWriter->writeData($writeData, $session);
     }
     
-    
+    public function validate($data)
+    {
+        $systemError = $data->get('dbsystem') !== 'mysql';
+        $hostError = $data->get('dbhost') === null || $data->get('dbhost') === '';
+        
+        if($systemError | $hostError) {
+            return array('systemError' => $systemError, 'hostError' => $hostError);
+        } else {
+            return true;
+        }
+    }
     
     /**
      * Finds the installed PDO extensions in PHP.

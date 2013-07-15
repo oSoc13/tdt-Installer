@@ -19,11 +19,16 @@
 			
 			<select class="box" name="cachesystem" id="cachesystem" >
                             {% for option in cachingoptions %}
-                                <option value="{{ option }}">{{ option }}</option>
+                                <option value="{{ option }}" {{ cachesystem == option ? 'selected' : '' }}>{{ option }}</option>
                             {% endfor %}
                         </select>
+                        {% if validationError and cachesystemError %} <p>Cache system must be NoCache or MemCache.</p> {% endif %}
+                        
 			<input class="box" type="text" id="cachehost" name="cachehost" value="{{ cachehost }}" />
+			{% if validationError and hostError %} <p>There's a problem with your hostname.</p> {% endif %}
+			
 			<input class="box" type="text" id="cacheport" name="cacheport" value="{{ cacheport }}" />
+			{% if validationError and portError %} <p>There's a problem with your port number.</p> {% endif %}
 		</div>
 
 		<div class="span1" id="info">

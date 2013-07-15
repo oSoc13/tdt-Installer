@@ -14,8 +14,9 @@ class Host implements WizardStep
     {
         return array(
             'haspreviouspage' => true,
-            'hostname' => $this->findDatatankHostname(),
-            'subdir' => $this->getSubDirectory(),
+            'hostname' => $session->get('hostname') !== null ? $session->get('hostname') : $this->findDatatankHostname(),
+            'subdir' => $session->get('subdir') !== null ? $session->get('subdir') : $this->getSubDirectory(),
+            'defaultformat' => $session->get('defaultformat') !== null ? $session->get('defaultformat') : '',
         );
     }
     
@@ -29,6 +30,19 @@ class Host implements WizardStep
         $writeData['defaultformat'] = $data->get('defaultformat');
         
         $settingsWriter->writeData($writeData, $session);
+    }
+    
+    public function validate($data)
+    {
+        $hostnameError = preg_match('/^(https?:\/\/).+\/$/', $data->get('hostname')) === 0;
+        $subdirError = preg_match('/^.+\/$/', $data->get('subdir')) === 0;
+        $formatError = $data->get('defaultformat') !== 'json' && $data->get('defaultformat') !== 'xml';
+        
+        if($hostnameError | $subdirError | $formatError) {
+            return array('hostnameError' => $hostnameError, 'subdirError' => $subdirError, 'defaultformatError' => $formatError);
+        } else {
+            return true;
+        }
     }
     
     /**

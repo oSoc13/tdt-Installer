@@ -34,6 +34,7 @@ $wizardSteps = array('Requirements', 'InitialDownload', 'Packages', 'PackageDown
     'General', 'Host', 'Logging', 'Cache', 'Database', 'DatabaseAdvanced', 'DatabaseUser',
     'DatabaseDb', 'Finish');
 
+    
 $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     $getParams = $request->query->all();
     if(array_key_exists('page', $getParams)) $step = $getParams['page'];
@@ -44,20 +45,29 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     $class = new $className();
     
     $pagevariables = array();
+    $pagevariables['validationError'] = false;
+    
+    if($request->getMethod() == 'POST') {
+        $class->writeData($request, $app['session']);
+        $validationOutput = $class->validate($request);
+        
+        if($validationOutput !== true) {
+            $pagevariables = array_merge($pagevariables, $validationOutput);
+            $pagevariables['validationError'] = true;
+        } else {
+            $redirectPage = $app['session']->get('dbinstalldefault') === true ? count($wizardSteps) - 1 : ($step + 1);
+            
+            return $app->redirect('?page='.$redirectPage);
+        }
+    }
+    
     $pagevariables['currentpage'] = $step;
     $pagevariables['hasnextpage'] = $step <= count($wizardSteps) - 1;
     $pagevariables = array_merge($pagevariables, $class->getPageContent($app['session']));
     
-    if($request->getMethod() == 'POST') {
-        $class->writeData($request, $app['session']);
-        
-        $redirectPage = $app['session']->get('dbinstalldefault') === true ? count($wizardSteps) - 1 : ($step + 1);
-        
-        return $app->redirect('?page='.$redirectPage);
-    }
-    
     return $app['twig']->render($page, $pagevariables);
 });
+
 
 $app->get('/requirements', function () use ($app) {
     $requirementCheck = new tdt\installer\RequirementsCheck();

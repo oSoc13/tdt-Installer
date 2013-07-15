@@ -15,8 +15,9 @@ class Cache implements WizardStep
         return array(
             'haspreviouspage' => true,
             'cachingoptions' => $this->getCachingChoices(),
-            'cachehost' => 'localhost',
-            'cacheport' => 11211,
+            'cachesystem' => $session->get('cachesystem') !== null ? $session->get('cachesystem') : 'NoCache',
+            'cachehost' => $session->get('cachehost') !== null ? $session->get('cachehost') : 'localhost',
+            'cacheport' => $session->get('cacheport') !== null ? $session->get('cacheport') : 11211,
         );
     }
     
@@ -30,6 +31,24 @@ class Cache implements WizardStep
         $writeData['cacheport'] = $data->get('cacheport');
         
         $settingsWriter->writeData($writeData, $session);
+    }
+    
+    public function validate($data)
+    {
+        $cachesystemError = $data->get('cachesystem') !== 'NoCache' && $data->get('cachesystem') !== 'MemCache';
+        if($data->get('cachesystem') === 'MemCache') {
+            $hostError = $data->get('cachehost') === null;
+            $portError = $data->get('cacheport') === null || !is_int($data->get('cacheport')) || in_array($data->get('cacheport'), range(0, 65535)) === false;
+        } else {
+            $hostError = false;
+            $portError = false;
+        }
+        
+        if($cachesystemError | $hostError | $portError) {
+            return array('cachesystemError' => $cachesystemError, 'hostError' => $hostError, 'portError' => $portError);
+        } else {
+            return true;
+        }
     }
     
     /**

@@ -17,8 +17,9 @@
 			<label class="label" for="accesslogapache">Apache access log</label>
 		
 			<div id="logging">
-				<input type="checkbox" class="c" id="logenabled" name="loggingenabled" checked />
-				<label for="logenabled" > Logging </label>
+				<input type="checkbox" class="c" id="logenabled" name="loggingenabled" {{ loggingenabled ? 'checked' : '' }} />
+				<label for="logenabled"> Logging </label>
+				{% if validationError and enabledError %} <p>This field is required</p> {% endif %}
 			</div>
 
 			<label class="label" for="logpath" id="path"> Path </label>
@@ -27,9 +28,11 @@
 
 		<div class="span5" id="boxen">
 			
-			<input class="span5" type="text" id="accesslogapache" name="accesslogapache" value="/var/log/apache2/access.log" />
+			<input class="span5" type="text" id="accesslogapache" name="accesslogapache" value="{{ accesslogapache }}" />
+			{% if validationError and apachelogError %} <p>There's an error in your Apache logpath.</p> {% endif %}
 			
-			<input class="span5" type="text" id="logpath" name="logpath" value="/tmp" />
+			<input class="span5" type="text" id="logpath" name="logpath" value="{{ logpath }}" />
+			{% if validationError and logpathError %} <p>There's an error in your logpath.</p> {% endif %}
 
 		</div>
 

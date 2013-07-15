@@ -20,10 +20,14 @@
 		<div class="span5" id="boxen">
 			
 			<input class="span5" type="text" id="hostname" name="hostname" value="{{ hostname }}" />
+			{% if validationError and hostnameError %} <p>Your hostname should look like &quot;http://example.com/&quot;.</p> {% endif %}
+			
 			<input class="span5" type="text" id="subdir" name="subdir" value="{{ subdir }}" />
+			{% if validationError and subdirError %} <p>The sub directory should look like &quot;datatank/public/&quot;</p> {% endif %}
+			
 			<select class="box" id="defaultformat" name="defaultformat">
-			  <option value="json" selected>JSON</option>
-			  <option value="xml">XML</option>
+			  <option value="json" {% if defaultformat == 'json' %} selected {% endif %}>JSON</option>
+			  <option value="xml" {% if defaultformat == 'xml' %} selected {% endif %}>XML</option>
 			</select>
 
 		</div>

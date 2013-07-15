@@ -18,6 +18,9 @@ class Packages implements WizardStep
         );
     }
     
+    /**
+     * Writes the selected packages to the composer file.
+     */
     public function writeData($data, $session)
     {
         $packageSelection = new \tdt\installer\PackageSelection();

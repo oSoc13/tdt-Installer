@@ -11,6 +11,9 @@
 
 	<section class="formbox">
             <form action="#" method="post" id="configform">
+           
+                {% if validationError and choiceError %} <p>You should choose New or Existing!</p> {% endif %}
+            
 		<label class="radio">
 		  <input class="radiodot" type="radio" name="dbusersetting" id="dbnewuser" value="new" checked>
 		  <h6>New user</h6>
@@ -26,10 +29,17 @@
 			</div>
 
 			<div class="span5" id="labels">
-				<input  class="span5" type="password" id="dbrootpassword" name="dbrootpassword" />	
+				<input  class="span5" type="password" id="dbrootpassword" name="dbrootpassword" />
+				{% if validationError and companyError %} <p>There's something wrong with your company name.</p> {% endif %}
+				
 				<input  class="span5" type="text" id="dbnewusername" name="dbnewusername" />	
-				<input  class="span5" type="password" id="dbnewpassword" name="dbnewpassword" />			
+				{% if validationError and companyError %} <p>There's something wrong with your company name.</p> {% endif %}
+				
+				<input  class="span5" type="password" id="dbnewpassword" name="dbnewpassword" />	
+				{% if validationError and companyError %} <p>There's something wrong with your company name.</p> {% endif %}
+				
 				<input  class="span5" type="password" id="dbconfirmpassword" name="dbconfirmpassword" />
+				{% if validationError and companyError %} <p>There's something wrong with your company name.</p> {% endif %}
 			</div>
 		
 		</div>

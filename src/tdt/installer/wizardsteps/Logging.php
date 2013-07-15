@@ -14,6 +14,9 @@ class Logging implements WizardStep
     {
         return array(
             'haspreviouspage' => true,
+            'accesslogapache' => $session->get('accesslogapache') !== null ? $session->get('accesslogapache') : '/var/log/apache2/access.log',
+            'loggingenabled' => $session->get('loggingenabled') === false ? false : true,
+            'logpath' => $session->get('logpath') !== null ? $session->get('logpath') : '/tmp',
         );
     }
     
@@ -27,5 +30,18 @@ class Logging implements WizardStep
         $writeData['logpath'] = $data->get('logpath');
         
         $settingsWriter->writeData($writeData, $session);
+    }
+    
+    public function validate($data)
+    {
+        $apachelogError = preg_match('/^.*access.log$/', $data->get('accesslogapache')) === 0;
+        $logpathError = $data->get('logpath') === null;
+        $enabledError = $data->get('loggingenabled') === null;
+        
+        if($apachelogError | $logpathError | $enabledError) {
+            return array('apachelogError' => $apachelogError, 'logpathError' => $logpathError, 'enabledError' => $enabledError);
+        } else {
+            return true;
+        }
     }
 }

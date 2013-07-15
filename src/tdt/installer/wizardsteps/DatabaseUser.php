@@ -36,4 +36,27 @@ class DatabaseUser implements WizardStep
         
         $settingsWriter->writeData($writeData, $session);
     }
+    
+    public function validate($data)
+    {
+        $choiceError = $data->get('dbusersetting') !== 'new' && $data->get('dbusersetting') !== 'existing';
+        
+        if(!$choiceError && $data->get('dbinstall') === 'default') {
+            $rootpasswordError = $data->get('dbrootpassword') === null;
+            $newpasswordError = $data->get('dbnewpassword') === null;
+            $passwordConfirmError = $data->get('dbnewpassword') !== $data->get('dbconfirmpassword');
+            $newusernameError = $data->get('dbnewusername') === null;
+        } elseif(!$choiceError) {
+            $passwordError = $data->get('dbpassword') === null;
+            $userError = $data->get('dbuser') === null;
+        }
+        
+        if($choiceError | $rootpasswordError | $newpasswordError | $passwordConfirmError | $newusernameError | $passwordError | $userError) {
+            return array('choiceError' => $choiceError, 'rootpasswordError' => $rootpasswordError,
+                'newpasswordError' => $newpasswordError, 'passwordConfirmError' => $passwordConfirmError,
+                'newusernameError' => $newusernameError, 'passwordError' => $passwordError, 'userError' => $userError);
+        } else {
+            return true;
+        }
+    }
 }

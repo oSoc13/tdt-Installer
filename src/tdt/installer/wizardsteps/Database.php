@@ -15,6 +15,7 @@ class Database implements WizardStep
     {
         return array(
             'haspreviouspage' => true,
+            'dbrootpassword' => $session->get('dbrootpassword') !== null ? $session->get('dbrootpassword') : '',
         );
     }
     
@@ -32,5 +33,22 @@ class Database implements WizardStep
         }
         
         $settingsWriter->writeData($writeData, $session);
+    }
+    
+    public function validate($data)
+    {
+        $choiceError = $data->get('dbinstall') !== 'default' && $data->get('dbinstall') !== 'advanced';
+        
+        if(!$choiceError && $data->get('dbinstall') === 'default') {
+            $passwordError = $data->get('dbrootpassword') === null;
+        } else {
+            $passwordError = false;
+        }
+        
+        if($choiceError | $passwordError) {
+            return array('choiceError' => $choiceError, 'passwordError' => $passwordError);
+        } else {
+            return true;
+        }
     }
 }

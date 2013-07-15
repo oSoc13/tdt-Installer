@@ -37,4 +37,9 @@ class DatabaseDb implements WizardStep
         
         $settingsWriter->writeData($writeData, $session);
     }
+    
+    public function validate($data)
+    {
+        return true;
+    }
 }

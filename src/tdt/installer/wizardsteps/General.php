@@ -14,8 +14,9 @@ class General implements WizardStep
     {
         return array(
             'haspreviouspage' => false,
+            'company' => $session->get('company') !== null ? $session->get('company') : '',
             'timezones' => timezone_identifiers_list(),
-            'currenttimezone' => date_default_timezone_get(),
+            'currenttimezone' => $session->get('timezone') !== null ? $session->get('timezone') : date_default_timezone_get(),
             'languages' => array('en' => 'English'),
         );
     }
@@ -30,5 +31,18 @@ class General implements WizardStep
         $writeData['defaultlanguage'] = $data->get('defaultlanguage');
         
         $settingsWriter->writeData($writeData, $session);
+    }
+    
+    public function validate($data)
+    {
+        $companyError = $data->get('company') === null;
+        $timezoneError = array_search($data->get('timezone'), timezone_identifiers_list()) === false;
+        $languageError = $data->get('defaultlanguage') !== 'en';
+        
+        if($companyError | $timezoneError | $languageError) {
+            return array('companyError' => $companyError, 'timezoneError' => $timezoneError, 'languageError' => $languageError);
+        } else {
+            return true;
+        }
     }
 }
