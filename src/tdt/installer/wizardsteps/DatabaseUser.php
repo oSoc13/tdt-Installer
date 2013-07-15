@@ -14,6 +14,12 @@ class DatabaseUser implements WizardStep
     {
         return array(
             'haspreviouspage' => true,
+            'dbnewuser' => $session->get('dbnewuser') !== null ? $session->get('dbnewuser') : true,
+            'dbrootpassword' => $session->get('dbrootpassword') !== null ? $session->get('dbrootpassword') : '',
+            'dbnewpassword' => $session->get('dbnewpassword') !== null ? $session->get('dbnewpassword') : '',
+            'dbnewusername' => $session->get('dbnewusername') !== null ? $session->get('dbnewusername') : '',
+            'dbuser' => $session->get('dbuser') !== null ? $session->get('dbuser') : '',
+            'dbpassword' => $session->get('dbpassword') !== null ? $session->get('dbpassword') : '',
         );
     }
     
@@ -41,14 +47,20 @@ class DatabaseUser implements WizardStep
     {
         $choiceError = $data->get('dbusersetting') !== 'new' && $data->get('dbusersetting') !== 'existing';
         
-        if(!$choiceError && $data->get('dbinstall') === 'default') {
+        if(!$choiceError && $data->get('dbusersetting') === 'new') {
             $rootpasswordError = $data->get('dbrootpassword') === null;
             $newpasswordError = $data->get('dbnewpassword') === null;
             $passwordConfirmError = $data->get('dbnewpassword') !== $data->get('dbconfirmpassword');
-            $newusernameError = $data->get('dbnewusername') === null;
+            $newusernameError = $data->get('dbnewusername') === null || $data->get('dbnewusername') === '';
+            $passwordError = false;
+            $userError = false;
         } elseif(!$choiceError) {
+            $rootpasswordError = false;
+            $newpasswordError = false;
+            $passwordConfirmError = false;
+            $newusernameError = false;
             $passwordError = $data->get('dbpassword') === null;
-            $userError = $data->get('dbuser') === null;
+            $userError = $data->get('dbuser') === null || $data->get('dbuser') === '';
         }
         
         if($choiceError | $rootpasswordError | $newpasswordError | $passwordConfirmError | $newusernameError | $passwordError | $userError) {

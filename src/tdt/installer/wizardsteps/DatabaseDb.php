@@ -10,16 +10,24 @@ namespace tdt\installer\wizardsteps;
  */
 class DatabaseDb implements WizardStep
 {
+    private $session;
+    
     public function getPageContent($session)
     {
         return array(
             'haspreviouspage' => true,
             'rootpasswordneeded' => $session->get('dbnewuser') === false,
+            'dbnewdb' => $session->get('dbnewdb') !== null ? $session->get('dbnewdb') : true,
+            'dbrootpassword' => $session->get('dbrootpassword') !== null ? $session->get('dbrootpassword') : true,
+            'dbnewname' => $session->get('dbnewname') !== null ? $session->get('dbnewname') : true,
+            'dbname' => $session->get('dbname') !== null ? $session->get('dbname') : true,
         );
     }
     
     public function writeData($data, $session)
     {
+        $this->session = $session;
+        
         $settingsWriter = new \tdt\installer\SettingsWriter();
         
         $writeData = array();
@@ -40,6 +48,25 @@ class DatabaseDb implements WizardStep
     
     public function validate($data)
     {
-        return true;
+        $choiceError = $data->get('dbdbsetting') !== 'new' && $data->get('dbdbsetting') !== 'existing';
+        
+        if(!$choiceError && $data->get('dbdbsetting') === 'new') {
+            if($this->session->get('dbnewuser') === false)
+                $rootpasswordError = $data->get('dbrootpassword') === null;
+                
+            $newnameError = $data->get('dbnewname') === null || $data->get('dbnewname') === '';
+            $nameError = false;
+        } elseif(!$choiceError) {
+            $rootpasswordError = false;
+            $newnameError = false;
+            $nameError = $data->get('dbname') === null || $data->get('dbname') === '';;
+        }
+        
+        if($choiceError | $rootpasswordError | $newnameError | $nameError) {
+            return array('choiceError' => $choiceError, 'rootpasswordError' => $rootpasswordError,
+                'newnameError' => $newnameError, 'nameError' => $nameError);
+        } else {
+            return true;
+        }
     }
 }

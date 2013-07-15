@@ -7,7 +7,8 @@
 
 $( document ).ready(function() {
     
-    setExistingSettingsDisplay(false);
+    setNewSettingsDisplay($("#dbnewdb").is(':checked'));
+    setExistingSettingsDisplay($("#dbexistingdb").is(':checked'));
     
     $("#dbnewdb").click(function() {
         setNewSettingsDisplay(true);
@@ -22,11 +23,9 @@ $( document ).ready(function() {
 }); 
 
 function setNewSettingsDisplay(shouldBeVisible) {
-    //$("label[for='newdbsettings']").css('display', shouldBeVisible ? 'block' : 'none');
     $("#newdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
 }
 
 function setExistingSettingsDisplay(shouldBeVisible) {
-    //$("label[for='existingdbsettings']").css('display', shouldBeVisible ? 'block' : 'none');
     $("#existingdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
 }

@@ -11,8 +11,11 @@
 
 	<section class="formbox">
             <form action="#" method="post" id="configform">
+            
+                {% if validationError and choiceError %} <p>You should choose New or Existing!</p> {% endif %}
+            
 		<label class="radio">
-		  <input class="radiodot" type="radio" name="dbdbsetting" id="dbnewdb" value="new" checked>
+		  <input class="radiodot" type="radio" name="dbdbsetting" id="dbnewdb" value="new"  {{ dbnewdb ? 'checked' : '' }}>
 		  <h6>New database</h6>
 		</label>
 
@@ -28,14 +31,16 @@
 			<div class="span5" id="labels">
                                 {% if rootpasswordneeded %}
 				<input  class="span5" type="password" id="rpwbox" name="dbrootpassword">
+				{% if validationError and rootpasswordError %} <p>The root password is required.</p> {% endif %}
 				{% endif %}
 				<input  class="span5" type="text" id="rpwbox" name="dbnewname">
+				{% if validationError and newnameError %} <p>The name of the database is required.</p> {% endif %}
 			</div>
 		
 		</div>
 
 		<label class="radio" id="edb">
-		  <input class="radiodot" type="radio" name="dbdbsetting" id="dbexistingdb" value="existing">
+		  <input class="radiodot" type="radio" name="dbdbsetting" id="dbexistingdb" value="existing" {{ dbnewdb ? '' : 'checked' }}>
 		  <h6>Existing database</h6>
 		</label>
 		
@@ -47,6 +52,7 @@
 
                         <div class="span5" id="labels">               
                                 <input  class="span5" type="text" id="rpwbox" name="dbname" />
+                                {% if validationError and nameError %} <p>The name of the database is required.</p> {% endif %}
                         </div>
                 
                 </div>

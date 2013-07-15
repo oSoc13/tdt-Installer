@@ -35,6 +35,11 @@ class Packages implements WizardStep
         $packageSelection->writeData($packages);
     }
     
+    public function validate($data)
+    {
+        return true;
+    }
+    
     private function getPackageInfo()
     {
         $packageSettings = json_decode(file_get_contents('settings/packages.json'), true);

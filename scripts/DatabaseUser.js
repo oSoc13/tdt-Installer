@@ -7,7 +7,8 @@
 
 $( document ).ready(function() {
     
-    setExistingSettingsDisplay(false);
+    setNewSettingsDisplay($("#dbnewuser").is(':checked'));
+    setExistingSettingsDisplay($("#dbexistinguser").is(':checked'));
     
     $("#dbnewuser").click(function() {
         setNewSettingsDisplay(true);
