@@ -27,37 +27,37 @@
       <ol class="progtrckr" data-progtrckr-steps="7">
 
         <li class="progtrckr-todo">
-          <div Class="circle done" ></div>
+          <div Class="circle {{ currentpage < 4 ? 'active' : 'done' }}" ></div>
           Packages
         </li>
    
         <li class="progtrckr-done">
-          <div Class="circle active" ></div>
+          <div Class="circle {{ currentpage == 4 ? 'active' : currentpage > 4 ? 'done' : '' }}" ></div>
           General
         </li>
         
         <li class="progtrckr-done">
-          <div Class="circle" ></div>
+          <div Class="circle {{ currentpage == 5 ? 'active' : currentpage > 5 ? 'done' : '' }}" ></div>
           Host
         </li>
         
         <li class="progtrckr-done">
-          <div Class="circle" ></div>
+          <div Class="circle {{ currentpage == 6 ? 'active' : currentpage > 6 ? 'done' : '' }}" ></div>
           Logging
         </li>
         
         <li class="progtrckr-done">
-          <div Class="circle" ></div>
+          <div Class="circle {{ currentpage == 7 ? 'active' : currentpage > 7 ? 'done' : '' }}"></div>
           Cache
         </li>
         
         <li class="progtrckr-done">
-          <div Class="circle" ></div>
-          Databank
+          <div Class="circle {{ currentpage > 7 and currentpage < 12 ? 'active' : currentpage > 11 ? 'done' : '' }}" ></div>
+          Database
         </li>
         
         <li class="progtrckr-done">
-          <div Class="circle" ></div>
+          <div Class="circle {{ currentpage == 12 ? 'active' : '' }}" ></div>
           Finish
         </li>
         
