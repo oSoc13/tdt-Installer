@@ -15,7 +15,7 @@ class SettingsCommitter
 
     public function commit($session)
     {
-        $this->copyFiles();
+        $copyResult = $this->copyFiles();
         
         // We need to mess with the database if the user chose the default settings,
         // or if the user wanted to create a new user or new database.
@@ -23,7 +23,16 @@ class SettingsCommitter
             $session->get('dbnewuser') || $session->get('dbnewdb');
         
         if($databasecreationNeeded) {
-            $this->createDatabase($session);
+            $dbResult = $this->createDatabase($session);
+        }
+        
+        $result = $copyResult === true ? '' : $copyResult;
+        $result .= $dbResult === true ? '' : $dbResult;
+            
+        if($result === '') {
+            return true;
+        } else {
+            return $result;
         }
     }
     
@@ -31,13 +40,17 @@ class SettingsCommitter
     {
         $oldCoresFile = $this->configPath."cores.example.json";
         $newCoresFile = $this->configPath."cores.json";
-        copy($oldCoresFile, $newCoresFile);
+        $result = copy($oldCoresFile, $newCoresFile);
         
         $oldAuthFile = $this->configPath."auth.example.json";
         $newAuthFile = $this->configPath."auth.json";
-        copy($oldAuthFile, $newAuthFile);
+        $result = $result & copy($oldAuthFile, $newAuthFile);
         
-        copy($this->publicPath."index.example.php", $this->publicPath."index.php");
+        $result = $result & copy($this->publicPath."index.example.php", $this->publicPath."index.php");
+        
+        if($result === false) $result = 'copy';
+        
+        return $result;
     }
     
     private function createDatabase($session)
@@ -69,8 +82,9 @@ class SettingsCommitter
         }
         catch (\PDOException $e)
         {
-            //var_dump($session->get('dbrootpassword'));
-            var_dump($e);
+            return $error = 'database';
         }
+        
+        return true;
     }
 }

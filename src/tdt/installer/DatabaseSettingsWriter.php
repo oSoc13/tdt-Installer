@@ -48,6 +48,6 @@ class DatabaseSettingsWriter
         
         $result = file_put_contents($dbSettingsFile, json_encode($dbSettings));
         
-        return $result ? "Success" : "Failure";
+        return $result;
     }
 }
