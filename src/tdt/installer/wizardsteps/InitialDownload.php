@@ -8,7 +8,7 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class InitialDownload implements WizardStep
+class InitialDownload extends WizardStep
 {
     public function getPageContent($session)
     {

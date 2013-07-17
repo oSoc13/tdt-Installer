@@ -9,7 +9,7 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Database implements WizardStep
+class Database extends WizardStep
 {
     public function getPageContent($session)
     {

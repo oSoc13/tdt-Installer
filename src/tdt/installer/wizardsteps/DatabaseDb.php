@@ -8,7 +8,7 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class DatabaseDb implements WizardStep
+class DatabaseDb extends WizardStep
 {
     private $session;
     

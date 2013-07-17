@@ -48,7 +48,7 @@ class SettingsCommitter
         
         $result = $result & copy($this->publicPath."index.example.php", $this->publicPath."index.php");
         
-        if($result === false) $result = 'copy';
+        if($result === false) $result = 'copyerror';
         
         return $result;
     }
@@ -82,7 +82,7 @@ class SettingsCommitter
         }
         catch (\PDOException $e)
         {
-            return $error = 'database';
+            return 'databaseerror';
         }
         
         return true;

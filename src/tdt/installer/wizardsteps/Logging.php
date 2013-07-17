@@ -8,7 +8,7 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Logging implements WizardStep
+class Logging extends WizardStep
 {
     public function getPageContent($session)
     {

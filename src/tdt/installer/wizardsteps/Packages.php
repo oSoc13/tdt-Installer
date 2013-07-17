@@ -3,12 +3,12 @@
 namespace tdt\installer\wizardsteps;
 
 /**
- * Info
+ * Class for the
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Packages implements WizardStep
+class Packages extends WizardStep
 {
     public function getPageContent($session)
     {
@@ -33,11 +33,6 @@ class Packages implements WizardStep
         }
         
         $packageSelection->writeData($packages);
-    }
-    
-    public function validate($data)
-    {
-        return true;
     }
     
     private function getPackageInfo()

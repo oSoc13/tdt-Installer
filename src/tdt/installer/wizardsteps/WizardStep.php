@@ -3,12 +3,20 @@
 namespace tdt\installer\wizardsteps;
 
 /**
- * Interface for steps in the installer wizard.
+ * Abstract base class for steps in the installer wizard.
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-interface WizardStep
+abstract class WizardStep
 { 
-    function getPageContent($session);
+    function getPageContent($session) {
+        return array();
+    }
+    
+    function validate($data) {
+        return true;
+    }
+    
+    function writeData($data, $session) {}
 }
