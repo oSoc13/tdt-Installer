@@ -123,7 +123,6 @@ class Requirements extends WizardStep
             if($path[$i] !== '.') {
                 $command = 'which '. $path[$i] .'/'.$app;
                 exec($command, $output, $status);
-                var_dump($command);
             }
             $i++;
         } while($i < count($path) && $status !== 0);
