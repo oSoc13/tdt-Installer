@@ -77,10 +77,15 @@ class Requirements extends WizardStep
         
         if($composerCheck['status'] === 0 && file_exists($composerCheck['output'])) {
             $session->set('composer', $composerCheck['output'].'composer');
+            
             return true;
         } else {
             $composerCheck = $this->applicationInstalledCheck('composer.phar');
-            $session->set('composer', $composerCheck['output'].'composer.phar');
+            
+            if($composerCheck['status'] === 0) {
+                $session->set('composer', $composerCheck['output'].'composer.phar');
+            }
+            
             return true;
         }
         
