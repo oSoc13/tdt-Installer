@@ -3,7 +3,7 @@
 namespace tdt\installer\wizardsteps;
 
 /**
- * Class for the step of the installer for the advanced db database configuration
+ * Class for the step of the installer for the advanced db settings database configuration
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
@@ -51,8 +51,11 @@ class DatabaseDb implements WizardStep
         $choiceError = $data->get('dbdbsetting') !== 'new' && $data->get('dbdbsetting') !== 'existing';
         
         if(!$choiceError && $data->get('dbdbsetting') === 'new') {
-            if($this->session->get('dbnewuser') === false)
+            if($this->session->get('dbnewuser') === false) {
                 $rootpasswordError = $data->get('dbrootpassword') === null;
+            } else {
+                $rootpasswordError = false;
+            }
                 
             $newnameError = $data->get('dbnewname') === null || $data->get('dbnewname') === '';
             $nameError = false;

@@ -66,14 +66,8 @@ class Host implements WizardStep
      */
     private function getSubDirectory()
     {
-        $pathInfo = pathinfo(__DIR__);
-        $path = explode('/', $pathInfo['dirname']);
+        $dir = explode('/', $_SERVER['REQUEST_URI']);
         
-        $i = count($path) - 1;
-        while($path[$i] !== "install") {
-            $i--;
-        }
-        
-        return $path[$i - 1] . "/public/";
+        return $dir[count($dir) - 3] . '/public/';
     }
 }

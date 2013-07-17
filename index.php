@@ -17,11 +17,7 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 $app->register(new Silex\Provider\SessionServiceProvider());
-/*$app->register(new Silex\Provider\FormServiceProvider());
-$app->register(new Silex\Provider\ValidatorServiceProvider());
-$app->register(new Silex\Provider\TranslationServiceProvider(), array(
-    'translator.messages' => array(),
-));*/
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/frontend',
 ));

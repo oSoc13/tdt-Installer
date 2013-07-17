@@ -59,8 +59,8 @@ class Finish implements WizardStep
             $settings["system"] = "mysql";
             $settings["host"] = "localhost";
             $settings["name"] = "datatank".$session->get("company");
-            $settings["password"] = "testuser";//"datatank";
-            $settings["user"] = "testuser";//"datatank";
+            $settings["password"] = "datatank";
+            $settings["user"] = "datatank";
         } else {
             $settings["system"] = $session->get("dbsystem");
             $settings["host"] = $session->get("dbhost");
