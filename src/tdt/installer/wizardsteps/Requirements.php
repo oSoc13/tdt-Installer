@@ -80,7 +80,7 @@ class Requirements extends WizardStep
             return true;
         } else {
             $composerCheck = $this->applicationInstalledCheck('composer.phar');
-            $session->set('composer', 'composer.phar');
+            $session->set('composer', $composerCheck['output'].'composer.phar');
             return true;
         }
         
