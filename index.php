@@ -54,7 +54,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
         if($app['session']->get('dbinstalldefault') !== true) {
             $step = $app['session']->get('lastVisitedStep');
         }
-    } elseif($step > 0 && $step < 4) {
+    } elseif($step < 4) {
         // You cannot revisit the package download pages
         if($app['session']->get('lastVisitedStep') > $step) {
             $step = $app['session']->get('lastVisitedStep');

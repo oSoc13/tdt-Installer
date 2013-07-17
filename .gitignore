@@ -1,4 +1,5 @@
 config.json
+out.txt
 settings/temp.json
 settings/composeroutput.json
 composer.lock

@@ -16,6 +16,7 @@ class GitCloner
         $tempdir = '../tdt/';
         $command = "git clone https://github.com/tdt/start.git {$tempdir}";
         exec($command, $output, $status);
+        file_put_contents('out.txt', implode("\n", $output) . "\n" . $status);
         
         if($status === 0)
         {
