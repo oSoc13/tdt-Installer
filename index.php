@@ -49,8 +49,11 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
         // You cannot go to a non-existing page of the installer!
         $step = 0;
     } elseif($step > $app['session']->get('lastVisitedStep') + 1) {
-        // You cannot skip steps in the installer!
-        $step = $app['session']->get('lastVisitedStep');
+        // You cannot skip steps in the installer, unless you have
+        // chosen the default database installation
+        if($app['session']->get('dbinstalldefault') !== true) {
+            $step = $app['session']->get('lastVisitedStep');
+        }
     } elseif($step > 0 && $step < 4) {
         // You cannot revisit the package download pages
         if($app['session']->get('lastVisitedStep') > $step) {

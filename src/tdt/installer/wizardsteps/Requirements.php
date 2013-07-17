@@ -68,13 +68,13 @@ class Requirements implements WizardStep
     /**
      * Checks whether Composer is installed (i.e. included in the PATH),
      * either as "composer" or as "composer.phar". The result is written to
-     * a json config file.
+     * the session.
      * It uses the PHP exec function.
      * @return boolean
      */
     private function composerInstalled($session)
     {
-        exec('which composer 2>&1', $output, $status);
+        exec('which /usr/local/bin/composer 2>&1', $output, $status);
         var_dump($output);
         var_dump($status);
         if($status === 0) {
@@ -95,8 +95,8 @@ class Requirements implements WizardStep
      */
     private function gitInstalled()
     {
-        $output = exec('which git');
-        return file_exists($line = trim($output));
+        exec('which git', $output, $status);
+        return $status === 0;
     }
     
     /**
