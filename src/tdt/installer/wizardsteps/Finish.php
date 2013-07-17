@@ -17,7 +17,7 @@ class Finish extends WizardStep
             'sessiondata' => $this->getSessionData($session),
         );
         
-        $this->commitSettings($session);
+        $commitResult = $this->commitSettings($session);
         
         $session->invalidate();
         

@@ -26,14 +26,16 @@ class SettingsCommitter
             $dbResult = $this->createDatabase($session);
         }
         
-        $result = $copyResult === true ? '' : $copyResult;
-        $result .= $dbResult === true ? '' : $dbResult;
-            
-        if($result === '') {
+        /*$result = $copyResult === true ? '' : $copyResult;
+        $result .= $dbResult === true ? '' : $dbResult;*/
+        
+        /*if($result === '') {
             return true;
         } else {
             return $result;
-        }
+        }*/
+        
+        return $copyResult & $dbResult;
     }
     
     private function copyFiles()
@@ -48,7 +50,7 @@ class SettingsCommitter
         
         $result = $result & copy($this->publicPath."index.example.php", $this->publicPath."index.php");
         
-        if($result === false) $result = 'copyerror';
+        if($result === false) $result = 'An error occured while copying DataTank configuration files!';
         
         return $result;
     }
@@ -82,7 +84,7 @@ class SettingsCommitter
         }
         catch (\PDOException $e)
         {
-            return 'databaseerror';
+            return 'An error occured while performing database tasks!';
         }
         
         return true;

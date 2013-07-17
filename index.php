@@ -88,7 +88,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     $pagevariables['currentpage'] = $step;
     $pagevariables['hasnextpage'] = $step < count($wizardSteps);
     $pagevariables = array_merge($pagevariables, $class->getPageContent($app['session']));
-    
+
     return $app['twig']->render($page, $pagevariables);
 });
 
@@ -103,20 +103,5 @@ $app->get('/packagedownload', function () use ($app) {
     
     return $packageDownloader->start($app['session']);
 });
-
-// $app->post('/packageselection', function (Request $request) use ($app) {
-//     $packageSelection = new tdt\installer\PackageSelection();
-//     
-//     $packages = array();
-//     
-//     foreach($request->get('packages') as $package)
-//     {
-//         $packages[] = $package;
-//     }
-//     
-//     $packageSelection->writeData($packages);
-//     
-//     return $app->redirect('?page=3');
-// });
 
 $app->run();

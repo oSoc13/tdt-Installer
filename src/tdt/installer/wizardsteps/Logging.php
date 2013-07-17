@@ -36,10 +36,10 @@ class Logging extends WizardStep
     {
         $apachelogError = preg_match('/^.*access.log$/', $data->get('accesslogapache')) === 0;
         $logpathError = $data->get('logpath') === null;
-        $enabledError = $data->get('loggingenabled') === null;
+        //$enabledError = $data->get('loggingenabled') === null;
         
         if($apachelogError | $logpathError | $enabledError) {
-            return array('apachelogError' => $apachelogError, 'logpathError' => $logpathError, 'enabledError' => $enabledError);
+            return array('apachelogError' => $apachelogError, 'logpathError' => $logpathError);
         } else {
             return true;
         }
