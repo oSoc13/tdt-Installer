@@ -16,7 +16,6 @@ class GitCloner
         $tempdir = '../tdt/';
         $command = "git clone https://github.com/tdt/start.git {$tempdir}";
         exec($command, $output, $status);
-        file_put_contents('out.txt', implode("\n", $output) . "\n" . $status);
         
         if($status === 0)
         {
@@ -28,9 +27,12 @@ class GitCloner
                     rename($tempdir.$file, "../{$file}");
                 }
             }
-        }
 
-        rmdir($tempdir);
+            $rmdir = rmdir($tempdir);
+        
+        }
+        
+        file_put_contents('settings/gitout.txt', implode("\n", $output) . "\n" . $status . "\n". $rmdir);
 
         return $status === 0;
     }

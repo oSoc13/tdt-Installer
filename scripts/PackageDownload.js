@@ -10,7 +10,7 @@ $( document ).ready(function() {
         url: "packagedownload",
         dataType: "json",
         success: function (response) {
-            window.location.href = "?page=4";
+            //window.location.href = "?page=4";
         }
     });
     

@@ -2,6 +2,7 @@ config.json
 out.txt
 settings/temp.json
 settings/composeroutput.json
+settings/gitout.txt
 composer.lock
 vendor/
 

@@ -112,8 +112,10 @@ class Requirements implements WizardStep
         $i = 0;
         
         do {
-            $command = 'which '. $path[$i] .'/'.$app;
-            exec($command, $output, $status);
+            if($path[$i] !== '.') {
+                $command = 'which '. $path[$i] .'/'.$app;
+                exec($command, $output, $status);
+            }
             $i++;
         } while($i < count($path) && $status !== 0);
         
@@ -130,7 +132,11 @@ class Requirements implements WizardStep
      */
     private function mysqlVersionIsCorrect()
     {
-        return substr(mysqli_get_client_version(), 0, 1) >= 5;
+        if($this->phpFunctionExists('mysqli_get_client_version')) {
+            return substr(mysqli_get_client_version(), 0, 1) >= 5;
+        } else {
+            return false;
+        }
     }
     
     /**
