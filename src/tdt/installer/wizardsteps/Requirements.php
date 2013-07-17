@@ -74,7 +74,7 @@ class Requirements extends WizardStep
     private function composerInstalled($session)
     {
         $composerCheck = $this->applicationInstalledCheck('composer');
-        $filename = implode('', $composerCheck['output']).'composer';
+        $filename = implode('', $composerCheck['output']);
         
         if($composerCheck['status'] === 0 && file_exists($filename)) {
             $session->set('composer', $filename);
@@ -82,12 +82,12 @@ class Requirements extends WizardStep
             return true;
         } else {
             $composerCheck = $this->applicationInstalledCheck('composer.phar');
-            $filename = implode('', $composerCheck['output']).'composer.phar';
+            $filename = implode('', $composerCheck['output']);
             
             if($composerCheck['status'] === 0 && file_exists($filename)) {
                 $session->set('composer', $filename);
             }
-            
+            var_dump($filename);
             return true;
         }
         
