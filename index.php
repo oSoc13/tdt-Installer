@@ -36,9 +36,29 @@ $wizardSteps = array('Requirements', 'InitialDownload', 'Packages', 'PackageDown
 
     
 $app->match('/', function (Request $request) use ($app, $wizardSteps) {
+    // Get the current page number
     $getParams = $request->query->all();
-    if(array_key_exists('page', $getParams)) $step = $getParams['page'];
+    if(array_key_exists('page', $getParams)) $step = (int) $getParams['page'];
     else $step = 0;
+    
+    // Check if the user is allowed to visit this page
+    if(!$app['session']->get('requirementsOk')) {
+        // You cannot start the installer if you don't meet the requirements!
+        $step = 0;
+    } elseif($step > count($wizardSteps) - 1 || $step < 0) {
+        // You cannot go to a non-existing page of the installer!
+        $step = 0;
+    } elseif($step > $app['session']->get('lastVisitedStep') + 1) {
+        // You cannot skip steps in the installer!
+        $step = $app['session']->get('lastVisitedStep');
+    } elseif($step > 0 && $step < 4) {
+        // You cannot revisit the package download pages
+        if($app['session']->get('lastVisitedStep') > $step) {
+            $step = $app['session']->get('lastVisitedStep');
+        }
+    }
+    
+    $app['session']->set('lastVisitedStep', $step);
     
     $page = strtolower($wizardSteps[$step].'.html');
     $className = 'tdt\\installer\\wizardsteps\\' . $wizardSteps[$step];
@@ -55,6 +75,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
             $pagevariables = array_merge($pagevariables, $validationOutput);
             $pagevariables['validationError'] = true;
         } else {
+            // Go to finish if we choose a default database installation
             $redirectPage = $app['session']->get('dbinstalldefault') === true ? count($wizardSteps) - 1 : ($step + 1);
             
             return $app->redirect('?page='.$redirectPage);
@@ -62,7 +83,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     }
     
     $pagevariables['currentpage'] = $step;
-    $pagevariables['hasnextpage'] = $step <= count($wizardSteps) - 1;
+    $pagevariables['hasnextpage'] = $step < count($wizardSteps);
     $pagevariables = array_merge($pagevariables, $class->getPageContent($app['session']));
     
     return $app['twig']->render($page, $pagevariables);

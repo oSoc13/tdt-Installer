@@ -30,6 +30,7 @@ class Requirements implements WizardStep
         }
         
         $result['requirementsok'] = $requirementsOk;
+        $session->set('requirementsOk', $requirementsOk);
         
         return $result;
     }

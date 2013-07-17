@@ -33,7 +33,11 @@ function updateOutputzone(zone)
                 window.location.href = "?page=4";
             } else {
                 $("#"+zone).empty();
-                $("#"+zone).append("<pre class='pre-scrollable'>" + response.output + "</pre>");
+                var pre = document.createElement('pre');
+                $(pre).addClass('pre-scrollable');
+                $(pre).html(response.output);
+                $(pre).appendTo("#"+zone);
+                $(pre).scrollTop($(pre).scrollHeight);
             }
         }
     });
