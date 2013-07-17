@@ -86,9 +86,10 @@ class Requirements extends WizardStep
             
             if($composerCheck['status'] === 0 && file_exists($filename)) {
                 $session->set('composer', $filename);
+                
+                return true;
             }
             var_dump($filename);
-            return true;
         }
         
         return false;
