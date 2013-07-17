@@ -69,34 +69,59 @@ class Requirements implements WizardStep
      * Checks whether Composer is installed (i.e. included in the PATH),
      * either as "composer" or as "composer.phar". The result is written to
      * the session.
-     * It uses the PHP exec function.
      * @return boolean
      */
     private function composerInstalled($session)
     {
-        exec('which /usr/local/bin/composer 2>&1', $output, $status);
-        var_dump($output);
-        var_dump($status);
-        if($status === 0) {
-            $session->set('composer', 'composer');
+        $composerCheck = $this->applicationInstalledCheck('composer');
+        
+        if($composerCheck['status'] === 0 && file_exists($composerCheck['output'])) {
+            $session->set('composer', $composerCheck['output'].'composer');
             return true;
         } else {
-            $output = exec('which composer.phar 2>&1', $output, $status);
-            var_dump($output);
-            $result = file_exists($output);
+            $composerCheck = $this->applicationInstalledCheck('composer.phar');
             $session->set('composer', 'composer.phar');
-            return $result;
+            return true;
         }
+        
+        return false;
     }
     
     /**
-     * Checks whether Git is installed. It uses the PHP exec function.
+     * Checks whether Git is installed.
      * @return boolean
      */
     private function gitInstalled()
     {
-        exec('which git', $output, $status);
-        return $status === 0;
+        $gitCheck = $this->applicationInstalledCheck('git');
+        return $gitCheck['status'] === 0;
+    }
+    
+    /**
+     * Checks whether the given application is installed (i.e. can be found in the PATH)
+     *
+     * @param string The name of the application to be found.
+     * @return array An array containing the status and the output.
+     */
+    private function applicationInstalledCheck($app) {
+        $path = exec('echo $PATH');
+        $path = explode(':', $path);
+        
+        $output = '';
+        $status = 1;
+        $i = 0;
+        
+        do {
+            $command = 'which '. $path[$i] .'/'.$app;
+            exec($command, $output, $status);
+            $i++;
+        } while($i < count($path) && $status !== 0);
+        
+        $result = array();
+        $result['output'] = $output;
+        $result['status'] = $status;
+        
+        return $result;
     }
     
     /**
