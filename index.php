@@ -92,13 +92,6 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     return $app['twig']->render($page, $pagevariables);
 });
 
-
-$app->get('/requirements', function () use ($app) {
-    $requirementCheck = new tdt\installer\RequirementsCheck();
-    
-    return $app->json($requirementCheck->getResult($app['session']));
-});
-
 $app->get('/gitclone', function () use ($app) {
     $gitcloner = new tdt\installer\GitCloner();
     
@@ -111,19 +104,19 @@ $app->get('/packagedownload', function () use ($app) {
     return $packageDownloader->start($app['session']);
 });
 
-$app->post('/packageselection', function (Request $request) use ($app) {
-    $packageSelection = new tdt\installer\PackageSelection();
-    
-    $packages = array();
-    
-    foreach($request->get('packages') as $package)
-    {
-        $packages[] = $package;
-    }
-    
-    $packageSelection->writeData($packages);
-    
-    return $app->redirect('?page=3');
-});
+// $app->post('/packageselection', function (Request $request) use ($app) {
+//     $packageSelection = new tdt\installer\PackageSelection();
+//     
+//     $packages = array();
+//     
+//     foreach($request->get('packages') as $package)
+//     {
+//         $packages[] = $package;
+//     }
+//     
+//     $packageSelection->writeData($packages);
+//     
+//     return $app->redirect('?page=3');
+// });
 
 $app->run();

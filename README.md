@@ -20,7 +20,8 @@ To start the installer, move the directory containing the installer to the direc
 
 ## Authors
 
-[Benjamin Mestdagh](https://github.com/benjaminmestdagh "Benjamin Mestdagh")
+* [Benjamin Mestdagh](https://github.com/benjaminmestdagh "Benjamin Mestdagh")
+* [Nicolas Dierck] (https://github.com/nicolasdierck "Nicolas Dierck")
 
 ## Copyright
 

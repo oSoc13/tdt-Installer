@@ -2,21 +2,21 @@
     {
         "name" : "Core",
         "required" : true,
-        "description" : "Lorem ipsum dolor.",
+        "description" : "RESTful API to configure several inputs to format using these formatters. Required if you want a working DataTank.",
         "packagename" : "tdt/core",
         "packageversion" : "dev-master"
     },
     {
         "name" : "UI",
         "required" : false,
-        "description" : "Lorem ipsum dolor.",
+        "description" : "User interface for the DataTank.",
         "packagename" : "tdt/ui",
         "packageversion" : "dev-master"
     },
     {
         "name" : "Input",
         "required" : false,
-        "description" : "Lorem ipsum dolor.",
+        "description" : "A streaming ETL with mapping function included. Depending on your configuration, you can extract files in different formats, transform them into PHP arrays, optionally map them to a vocabulary and load the arrays in a store.",
         "packagename" : "tdt/input",
         "packageversion" : "dev-master"
     }
