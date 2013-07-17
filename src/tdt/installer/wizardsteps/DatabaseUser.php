@@ -63,7 +63,9 @@ class DatabaseUser extends WizardStep
             $userError = $data->get('dbuser') === null || $data->get('dbuser') === '';
         }
         
-        if($choiceError | $rootpasswordError | $newpasswordError | $passwordConfirmError | $newusernameError | $passwordError | $userError) {
+        if($choiceError | $rootpasswordError | $newpasswordError | $passwordConfirmError 
+            | $newusernameError | $passwordError | $userError) {
+            
             return array('choiceError' => $choiceError, 'rootpasswordError' => $rootpasswordError,
                 'newpasswordError' => $newpasswordError, 'passwordConfirmError' => $passwordConfirmError,
                 'newusernameError' => $newusernameError, 'passwordError' => $passwordError, 'userError' => $userError);

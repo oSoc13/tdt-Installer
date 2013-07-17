@@ -29,7 +29,6 @@ class GitCloner
             }
 
             $rmdir = rmdir($tempdir);
-        
         }
         
         file_put_contents('settings/gitout.txt', implode("\n", $output) . "\n" . $status . "\n". $rmdir);
