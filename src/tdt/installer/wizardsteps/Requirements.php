@@ -74,12 +74,15 @@ class Requirements implements WizardStep
      */
     private function composerInstalled($session)
     {
-        $output = exec('which composer');
-        if(file_exists($output)) {
+        exec('which composer', $output, $status);
+        var_dump($output);
+        var_dump($status);
+        if($status === 0) {
             $session->set('composer', 'composer');
             return true;
         } else {
-            $output = exec('which composer.phar');
+            $output = exec('which composer.phar', $output, $status);
+            var_dump($output);
             $result = file_exists($output);
             $session->set('composer', 'composer.phar');
             return $result;
