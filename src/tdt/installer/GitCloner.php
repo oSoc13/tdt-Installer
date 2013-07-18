@@ -13,7 +13,30 @@ class GitCloner
 {
     public function getResult()
     {
-        $tmpfile = 'starttmp.zip';
+        $tempdir = '../tdt/';
+        $command = "git clone https://github.com/tdt/start.git {$tempdir}";
+        exec($command, $output, $status);
+        
+        if($status === 0)
+        {
+            $files = scandir($tempdir);
+            foreach($files as $file)
+            {
+                if($file != '.' && $file != '..')
+                {
+                    rename($tempdir.$file, "../{$file}");
+                }
+            }
+
+            $rmdir = rmdir($tempdir);
+        
+        }
+        
+        file_put_contents('settings/gitout.txt', implode("\n", $output) . "\n" . $status);// . "\n". $rmdir);
+
+        return $status === 0;
+        
+        /*$tmpfile = 'starttmp.zip';
         $tmpdir = '../start-master/';
         $link = 'https://github.com/tdt/start/archive/master.zip';
         
@@ -44,6 +67,6 @@ class GitCloner
         } else {
             file_put_contents('settings/gitout.txt', $res);
             return false;
-        }
+        }*/
     }
 }
