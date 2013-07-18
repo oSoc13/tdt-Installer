@@ -24,8 +24,8 @@ class DatabaseSettingsWriter
             $dbSettings["system"] = "mysql";
             $dbSettings["host"] = "localhost";
             $dbSettings["name"] = "datatank".$session->get("company");
-            $dbSettings["password"] = "testuser";//"datatank";
-            $dbSettings["user"] = "testuser";//"datatank";
+            $dbSettings["password"] = "datatank";
+            $dbSettings["user"] = "datatank";
         } else {
             $dbSettings["system"] = $session->get("dbsystem");
             $dbSettings["host"] = $session->get("dbhost");
