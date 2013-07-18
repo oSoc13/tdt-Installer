@@ -16,8 +16,6 @@ class GitCloner
         $outputfile = 'settings/gitoutput.json';
         $tempdir = 'tdt/';
         $command = "git clone https://github.com/tdt/start.git {$tempdir}";
-        $status = 1; // we're assuming the git cloning will fail
-        //exec($command, $output, $status);
         
         $descriptorspec = array(
             0 => array("pipe", "r"),   // stdin is a pipe that the child will read from
@@ -35,13 +33,16 @@ class GitCloner
                 file_put_contents($outputfile, json_encode($json));
                 flush();
             }
-            
-            $status = proc_get_status();
         }
         
         proc_close($process);
         
-        if($status === 0)
+        // TODO It seems quite difficult to get the exit code of a proc_open process,
+        // therefore we are for now using a simpler method to check if the git cloning worked:
+        // git cloning was successful if we now have the cloned directory..
+        $status = file_exists($tempdir);
+        
+        if($status === true)
         {
             $files = scandir($tempdir);
             foreach($files as $file)
@@ -54,7 +55,7 @@ class GitCloner
 
             $rmdir = rmdir($tempdir);
             
-            $result = $status === 0;
+            $result = $status;
         
         } else {
             $tmpfile = 'starttmp.zip';
@@ -62,15 +63,14 @@ class GitCloner
             $link = 'https://github.com/tdt/start/archive/master.zip';
             
             $json = json_decode(file_get_contents($outputfile));
+            $json->output .= "\n\nFalling back to ZIP download...";
+            file_put_contents($outputfile, json_encode($json));
             file_put_contents($tmpfile, fopen($link, 'r'));
             
             $zip = new \ZipArchive();
             
             $res = $zip->open('starttmp.zip');
             if ($res === TRUE) {
-                $json->output .= "\n\nFalling back to ZIP download...";
-                file_put_contents($outputfile, json_encode($json));
-                
                 $zip->extractTo('..');
                 $zip->close();
                 
@@ -89,7 +89,7 @@ class GitCloner
                 
                 $result = true;
             } else {
-                $json->output .= "\n\nThere was an error, even ZIP download failed...";
+                $json->output .= "There was an error, even ZIP download failed...";
                 file_put_contents($outputfile, json_encode($json));
                 $result = false;
             }
@@ -98,6 +98,7 @@ class GitCloner
         $json = json_decode(file_get_contents($outputfile));
         $json->finished = true;
         $json->success = $result;
+        $json->status = $status;
         file_put_contents($outputfile, json_encode($json));
         
         return $result;
