@@ -29,6 +29,7 @@ class PackageDownloader
         $process = proc_open($command, $descriptorspec, $pipes, realpath('./'), array('COMPOSER_HOME=/home'));
         
         if (is_resource($process)) {
+            \tdt\installer\LogWriter::write("Started composer update.");
             while ($s = fgets($pipes[1])) {
                 $json = json_decode(file_get_contents($outputfile));
                 $json->output .= $s;
@@ -41,6 +42,7 @@ class PackageDownloader
         
         $json = json_decode(file_get_contents($outputfile));
         $json->finished = true;
+        \tdt\installer\LogWriter::write("Finished composer update.");
         file_put_contents($outputfile, json_encode($json));
         
         return 0;

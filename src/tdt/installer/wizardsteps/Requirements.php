@@ -32,6 +32,9 @@ class Requirements extends WizardStep
         $result['requirementsok'] = $requirementsOk;
         $session->set('requirementsOk', $requirementsOk);
         
+        $logmessage = 'Requirements check: '. ($requirementsOk ? 'OK' : 'Not OK');
+        \tdt\installer\LogWriter::write($logmessage);
+        
         return $result;
     }
     

@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="span5" id="labels">
-				<input  class="dbbox" type="password" id="dbrootpassword" name="dbrootpassword" value="{{ dbrootpassword }}"/>
+				<input  class="dbbox" type="password" id="dbrootpassword" name="dbrootpassword" value="{{ dbrootpassword }}" autocomplete="off" />
 				{% if validationError and rootpasswordError %} <p>The root password is required.</p> {% endif %}
 				
 				<input  class="dbbox" type="text" id="dbnewusername" name="dbnewusername" value="{{ dbnewusername }}" />	

@@ -48,6 +48,9 @@ class DatabaseSettingsWriter
         
         $result = file_put_contents($dbSettingsFile, json_encode($dbSettings));
         
+        $logmessage = "Writing database configuration settings to {$dbSettingsFile}: " . ($result ? 'OK' : 'Error');
+        \tdt\installer\LogWriter::write($logmessage);
+        
         return $result;
     }
 }

@@ -30,10 +30,10 @@
 
 			<div class="span5" id="labels">
                                 {% if rootpasswordneeded %}
-				<input  class="span5" type="password" id="rpwbox" name="dbrootpassword">
+				<input  class="span5" type="password" id="rpwbox" name="dbrootpassword" autocomplete="off" />
 				{% if validationError and rootpasswordError %} <p>The root password is required.</p> {% endif %}
 				{% endif %}
-				<input  class="span5" type="text" id="rpwbox" name="dbnewname">
+				<input  class="span5" type="text" id="rpwbox" name="dbnewname" />
 				{% if validationError and newnameError %} <p>The name of the database is required.</p> {% endif %}
 			</div>
 		

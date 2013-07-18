@@ -27,6 +27,8 @@ class GitCloner
         $process = proc_open($command, $descriptorspec, $pipes, realpath('./'), array());
         
         if (is_resource($process)) {
+            \tdt\installer\LogWriter::write("Started Git clone into {$tempdir}");
+        
             while ($s = fgets($pipes[1])) {
                 $json = json_decode(file_get_contents($outputfile));
                 $json->output .= $s;
@@ -44,6 +46,8 @@ class GitCloner
         
         if($status === true)
         {
+            \tdt\installer\LogWriter::write("Git clone successful.");
+            
             $files = scandir($tempdir);
             foreach($files as $file)
             {
@@ -54,6 +58,8 @@ class GitCloner
             }
 
             $rmdir = rmdir($tempdir);
+            
+            \tdt\installer\LogWriter::write("Moving to .. and deleting {$tempdir}: " . ($rmdir ? 'OK' : 'Error'));
             
             $result = $status;
         
@@ -66,6 +72,7 @@ class GitCloner
             $json->output .= "\n\nFalling back to ZIP download...";
             file_put_contents($outputfile, json_encode($json));
             file_put_contents($tmpfile, fopen($link, 'r'));
+            \tdt\installer\LogWriter::write("Falling back to zip download.");
             
             $zip = new \ZipArchive();
             
@@ -91,6 +98,8 @@ class GitCloner
             } else {
                 $json->output .= "There was an error, even ZIP download failed...";
                 file_put_contents($outputfile, json_encode($json));
+                \tdt\installer\LogWriter::write("Zip download failed.");
+                
                 $result = false;
             }
         }

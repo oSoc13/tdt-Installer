@@ -3,6 +3,7 @@ out.txt
 settings/temp.json
 settings/composeroutput.json
 settings/gitoutput.json
+settings/installer.log
 composer.lock
 vendor/
 tdt/test

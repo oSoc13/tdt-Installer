@@ -46,6 +46,9 @@ class GeneralSettingsWriter
         
         $result = file_put_contents($generalSettingsFile, json_encode($generalSettings));
         
-        return $result ? "Success" : "Failure";
+        $logmessage = "Writing general configuration settings to {$generalSettingsFile}: " . ($result ? 'OK' : 'Error');
+        \tdt\installer\LogWriter::write($logmessage);
+        
+        return $result;
     }
 }

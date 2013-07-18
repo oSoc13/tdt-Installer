@@ -35,6 +35,7 @@ class PackageSelection
         }
         
         file_put_contents($composerFile, json_encode($composerSettings));
+        \tdt\installer\LogWriter::write("Selected packages: " . implode(', ', array_keys($composerSettings['require'])));
         
         return $input;
     }
