@@ -13,7 +13,8 @@
             <form action="#" method="post" id="configform">
            
                 {% if validationError and choiceError %} <p>You should choose New or Existing!</p> {% endif %}
-            
+        
+
 		<label class="radio">
 		  <input class="radiodot" type="radio" name="dbusersetting" id="dbnewuser" value="new" {{ dbnewuser ? 'checked' : '' }}>
 		  New user
@@ -44,27 +45,29 @@
 		
 		</div>
 
-		<label class="radio" id="euser">
-		  <input class="radiodot" type="radio" name="dbusersetting" id="dbexistinguser" value="existing" {{ dbnewuser ? '' : 'checked' }}>
-		  Existing user
-		</label>
-		
-		<div class="rootpw" id="existingusersettings">
-		
-                    <div class="span2" id="labels">
-                            <label class="label clearfix" for="dbuser" id="rpw"> Username</label>
-                            <label class="label clearfix" for="dbpassword" id="rpw"> Password</label>
-                    </div>
+		<div class="clear">
+			<label class="radio" id="euser">
+			  <input class="radiodot" type="radio" name="dbusersetting" id="dbexistinguser" value="existing" {{ dbnewuser ? '' : 'checked' }}>
+			  Existing user
+			</label>
+			
+			<div class="rootpw" id="existingusersettings">
+			
+	                    <div class="span2" id="labels">
+	                            <label class="label clearfix" for="dbuser" id="rpw"> Username</label>
+	                            <label class="label clearfix" for="dbpassword" id="rpw"> Password</label>
+	                    </div>
 
-                    <div class="span5" id="labels">
-                            <input  class="dbbox" type="text" id="dbuser" name="dbuser" value="{{ dbuser }}" />  
-                            {% if validationError and userError %} <p>The user's name is required.</p> {% endif %}
-                            
-                            <input  class="dbbox" type="password" id="dbpassword" name="dbpassword" value="{{ dbpassword }}" />  
-                            {% if validationError and passwordError %} <p>The user's password is required.</p> {% endif %}
-                    </div>
-                
-                </div>
+	                    <div class="span5" id="labels">
+	                            <input  class="dbbox" type="text" id="dbuser" name="dbuser" value="{{ dbuser }}" />  
+	                            {% if validationError and userError %} <p>The user's name is required.</p> {% endif %}
+	                            
+	                            <input  class="dbbox" type="password" id="dbpassword" name="dbpassword" value="{{ dbpassword }}" />  
+	                            {% if validationError and passwordError %} <p>The user's password is required.</p> {% endif %}
+	                    </div>
+	                
+	        </div>
+    	</div>
             </form>
 	</section>
         

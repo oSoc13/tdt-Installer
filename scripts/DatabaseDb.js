@@ -10,12 +10,12 @@ $( document ).ready(function() {
     setNewSettingsDisplay($("#dbnewdb").is(':checked'));
     setExistingSettingsDisplay($("#dbexistingdb").is(':checked'));
     
-    $("#dbnewdb").click(function() {
+    $("#dbnewdb").click(function(e) {
         setNewSettingsDisplay(true);
         setExistingSettingsDisplay(false);
     });
     
-    $("#dbexistingdb").click(function() {
+    $("#dbexistingdb").click(function(e) {
         setNewSettingsDisplay(false);
         setExistingSettingsDisplay(true);
     });
@@ -23,6 +23,8 @@ $( document ).ready(function() {
 }); 
 
 function setNewSettingsDisplay(shouldBeVisible) {
+    console.log('setNewSettingsDisplay');
+
     //$("#newdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
     if(shouldBeVisible) {
         $("#newdbsettings").show();
@@ -32,6 +34,8 @@ function setNewSettingsDisplay(shouldBeVisible) {
 }
 
 function setExistingSettingsDisplay(shouldBeVisible) {
+    console.log('setExistingSettingsDisplay');
+
     //$("#existingdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
     if(shouldBeVisible) {
         $("#existingdbsettings").show();

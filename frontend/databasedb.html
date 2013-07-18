@@ -39,27 +39,29 @@
 		
 		</div>
 
-		<label class="radio" id="edb">
-		  <input class="radiodot" type="radio" name="dbdbsetting" id="dbexistingdb" value="existing" {{ dbnewdb ? '' : 'checked' }}>
-		  <h6>Existing database</h6>
-		</label>
-		
-		<div class="rootpw" id="existingdbsettings">
+		<div class="clear">
+			<label class="radio" id="edb">
+			  <input class="radiodot" type="radio" name="dbdbsetting" id="dbexistingdb" value="existing" {{ dbnewdb ? '' : 'checked' }}>
+			  <h6>Existing database</h6>
+			</label>
+			
+			<div class="rootpw" id="existingdbsettings">
 
-                        <div class="span2" id="labels">
-                                <label class="label clearfix" for="dbname" id="rpwlabel"> Database name </label>
-                        </div>
+	                        <div class="span2" id="labels">
+	                                <label class="label clearfix" for="dbname" id="rpwlabel"> Database name </label>
+	                        </div>
 
-                        <div class="span5" id="labels">               
-                                <input  class="span5" type="text" id="rpwbox" name="dbname" />
-                                {% if validationError and nameError %} <p>The name of the database is required.</p> {% endif %}
-                        </div>
-                
-                </div>
+	                        <div class="span5" id="labels">               
+	                                <input  class="span5" type="text" id="rpwbox" name="dbname" />
+	                                {% if validationError and nameError %} <p>The name of the database is required.</p> {% endif %}
+	                        </div>
+	                
+	                </div>
+	    </div>
             </form>
 	</section>
         
-    <div class="buttons clearfix">
+    <div class="buttons clearfix" id="btndbuser">
         
         {% if hasnextpage %}
         <a class="btn" id="next">NEXT</a>

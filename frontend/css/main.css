@@ -431,16 +431,16 @@ section.span5 {
   line-height: 2.4;
 }
 
-#euser {
+/*#euser {
   margin-top: 280px;
-}
+}*/
 
 .dbbox {
   margin-top: 10px;
 }
 
 #edb {
-  margin-top: 150px;
+  padding-top: 20px;
 }
 
 #grats {
@@ -455,6 +455,7 @@ section.span5 {
   margin-left: 55px;
   margin-right: 55px;
   overflow: auto;
+  margin-bottom: 40px;
 }
 
 .info#helpicon{
@@ -475,5 +476,17 @@ p {
 }
 
 #btndbuser {
-  margin-top: 120px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  clear: both;
 }
+
+.clear{
+  clear:both;
+}
+
+.block {
+  display: block;
+  width: 100%;
+}
+
