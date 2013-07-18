@@ -3,7 +3,7 @@
 namespace tdt\installer;
 
 /**
- * Gets the selected Datatank packages.
+ * Gets the selected Datatank packages by running a composer update.
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
@@ -15,8 +15,7 @@ class PackageDownloader
         $outputfile = "settings/composeroutput.json";
         $composerFile = '../composer.json';
         
-        //$tempsettings = json_decode(file_get_contents('settings/temp.json'));
-        
+        // When checking the requirements, we saved the composer location to the session!
         $command = $session->get('composer').' update -d .. 2>&1';
         $descriptorspec = array(
             0 => array("pipe", "r"),   // stdin is a pipe that the child will read from

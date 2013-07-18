@@ -13,9 +13,33 @@ class GitCloner
 {
     public function getResult()
     {
-        $tempdir = '../tdt/';
+        $outputfile = 'settings/gitoutput.json';
+        $tempdir = 'tdt/';
         $command = "git clone https://github.com/tdt/start.git {$tempdir}";
-        exec($command, $output, $status);
+        $status = 1; // we're assuming the git cloning will fail
+        //exec($command, $output, $status);
+        
+        $descriptorspec = array(
+            0 => array("pipe", "r"),   // stdin is a pipe that the child will read from
+            1 => array("pipe", "w"),   // stdout is a pipe that the child will write to
+            2 => array("pipe", "w")    // stderr is a pipe that the child will write to
+        );
+        flush();
+        
+        $process = proc_open($command, $descriptorspec, $pipes, realpath('./'), array());
+        
+        if (is_resource($process)) {
+            while ($s = fgets($pipes[1])) {
+                $json = json_decode(file_get_contents($outputfile));
+                $json->output .= $s;
+                file_put_contents($outputfile, json_encode($json));
+                flush();
+            }
+            
+            $status = proc_get_status();
+        }
+        
+        proc_close($process);
         
         if($status === 0)
         {
@@ -29,44 +53,53 @@ class GitCloner
             }
 
             $rmdir = rmdir($tempdir);
-        
-        }
-        
-        file_put_contents('settings/gitout.txt', implode("\n", $output) . "\n" . $status);// . "\n". $rmdir);
-
-        return $status === 0;
-        
-        /*$tmpfile = 'starttmp.zip';
-        $tmpdir = '../start-master/';
-        $link = 'https://github.com/tdt/start/archive/master.zip';
-        
-        file_put_contents($tmpfile, fopen($link, 'r'));
-        
-        $zip = new \ZipArchive();
-        
-        $res = $zip->open('starttmp.zip');
-        if ($res === TRUE) {
-            file_put_contents('settings/gitout.txt', $res);
-            $zip->extractTo('..');
-            $zip->close();
             
-            $files = scandir($tmpdir);
-            foreach($files as $file)
-            {
-                
-                if($file != '.' && $file != '..')
-                {
-                    rename($tmpdir.$file, "../{$file}");
-                }
-            }
-
-            $rmdir = rmdir($tmpdir);
-            unlink($tmpfile);
+            $result = $status === 0;
         
-            return true;
         } else {
-            file_put_contents('settings/gitout.txt', $res);
-            return false;
-        }*/
+            $tmpfile = 'starttmp.zip';
+            $tmpdir = '../start-master/';
+            $link = 'https://github.com/tdt/start/archive/master.zip';
+            
+            $json = json_decode(file_get_contents($outputfile));
+            file_put_contents($tmpfile, fopen($link, 'r'));
+            
+            $zip = new \ZipArchive();
+            
+            $res = $zip->open('starttmp.zip');
+            if ($res === TRUE) {
+                $json->output .= "\n\nFalling back to ZIP download...";
+                file_put_contents($outputfile, json_encode($json));
+                
+                $zip->extractTo('..');
+                $zip->close();
+                
+                $files = scandir($tmpdir);
+                foreach($files as $file)
+                {
+                    
+                    if($file != '.' && $file != '..')
+                    {
+                        rename($tmpdir.$file, "../{$file}");
+                    }
+                }
+
+                $rmdir = rmdir($tmpdir);
+                unlink($tmpfile);
+                
+                $result = true;
+            } else {
+                $json->output .= "\n\nThere was an error, even ZIP download failed...";
+                file_put_contents($outputfile, json_encode($json));
+                $result = false;
+            }
+        }
+            
+        $json = json_decode(file_get_contents($outputfile));
+        $json->finished = true;
+        $json->success = $result;
+        file_put_contents($outputfile, json_encode($json));
+        
+        return $result;
     }
 }

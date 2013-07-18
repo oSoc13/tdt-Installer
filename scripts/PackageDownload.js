@@ -1,5 +1,5 @@
 /**
- * Script for the 4th step of the installer (i.e. download packages)
+ * Script for the 4th step of the installer (i.e. downloading selected packages using composer)
  * 
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
