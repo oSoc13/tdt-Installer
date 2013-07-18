@@ -5,6 +5,6 @@ settings/composeroutput.json
 settings/gitout.txt
 composer.lock
 vendor/
-tdt/
+tdt/test
 
 *.kate-swp

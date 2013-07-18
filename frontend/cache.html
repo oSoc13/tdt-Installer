@@ -17,7 +17,7 @@
 
 		<div class="span5" id="boxen">
 			
-			<select class="box" name="cachesystem" id="cachesystem" >
+			<select name="cachesystem" id="cachesystem" >
                             {% for option in cachingoptions %}
                                 <option value="{{ option }}" {{ cachesystem == option ? 'selected' : '' }}>{{ option }}</option>
                             {% endfor %}
