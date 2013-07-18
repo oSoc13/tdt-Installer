@@ -37,7 +37,9 @@ function updateOutputzone(zone)
                 $(pre).addClass('pre-scrollable');
                 $(pre).html(response.output);
                 $(pre).appendTo("#"+zone);
-                $(pre).scrollTop($(pre).scrollHeight);
+                
+                // ugly hack to make the div scroll down..
+                $(pre).scrollTop(99999);//$(pre).scrollHeight);
             }
         }
     });

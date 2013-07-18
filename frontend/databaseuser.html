@@ -36,10 +36,10 @@
 				<input  class="dbbox" type="text" id="dbnewusername" name="dbnewusername" value="{{ dbnewusername }}" />	
 				{% if validationError and newusernameError %} <p>A username for the new user is required.</p> {% endif %}
 				
-				<input  class="dbbox" type="password" id="dbnewpassword" name="dbnewpassword"  value="{{ dbnewpassword }}" />	
+				<input  class="dbbox" type="password" id="dbnewpassword" name="dbnewpassword"  value="{{ dbnewpassword }}" autocomplete="off" />	
 				{% if validationError and newpasswordError %} <p>A password for the new user is required.</p> {% endif %}
 				
-				<input  class="dbbox" type="password" id="dbconfirmpassword" name="dbconfirmpassword" />
+				<input  class="dbbox" type="password" id="dbconfirmpassword" name="dbconfirmpassword" autocomplete="off" />
 				{% if validationError and passwordConfirmError %} <p>The passwords do not match.</p> {% endif %}
 			</div>
 		
@@ -62,7 +62,7 @@
 	                            <input  class="dbbox" type="text" id="dbuser" name="dbuser" value="{{ dbuser }}" />  
 	                            {% if validationError and userError %} <p>The user's name is required.</p> {% endif %}
 	                            
-	                            <input  class="dbbox" type="password" id="dbpassword" name="dbpassword" value="{{ dbpassword }}" />  
+	                            <input  class="dbbox" type="password" id="dbpassword" name="dbpassword" value="{{ dbpassword }}" autocomplete="off" />  
 	                            {% if validationError and passwordError %} <p>The user's password is required.</p> {% endif %}
 	                    </div>
 	                
