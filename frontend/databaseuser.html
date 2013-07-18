@@ -16,29 +16,29 @@
             
 		<label class="radio">
 		  <input class="radiodot" type="radio" name="dbusersetting" id="dbnewuser" value="new" {{ dbnewuser ? 'checked' : '' }}>
-		  <h6>New user</h6>
+		  New user
 		</label>
 
 		<div class="rootpw" id="newusersettings">
 
 			<div class="span2" id="labels">
-				<label class="label clearfix" for="dbrootpassword" class="rpwlabel"> Root Password </label>
-				<label class="label clearfix" for="dbnewusername" class="rpwlabel"> Username </label>
-				<label class="label clearfix" for="dbnewpassword" class="rpwlabel"> New Password </label>
-				<label class="label clearfix" for="dbconfirmpassword" class="rpwlabel"> Confirm Password </label>
+				<label class="label clearfix" for="dbrootpassword" id="rpw">Root Password</label>
+				<label class="label clearfix" for="dbnewusername" id="rpw">Username</label>
+				<label class="label clearfix" for="dbnewpassword" id="rpw">New Password</label>
+				<label class="label clearfix" for="dbconfirmpassword" id="rpw">Confirm Password</label>
 			</div>
 
 			<div class="span5" id="labels">
-				<input  class="span5" type="password" id="dbrootpassword" name="dbrootpassword" value="{{ dbrootpassword }}"/>
+				<input  class="dbbox" type="password" id="dbrootpassword" name="dbrootpassword" value="{{ dbrootpassword }}"/>
 				{% if validationError and rootpasswordError %} <p>The root password is required.</p> {% endif %}
 				
-				<input  class="span5" type="text" id="dbnewusername" name="dbnewusername" value="{{ dbnewusername }}" />	
+				<input  class="dbbox" type="text" id="dbnewusername" name="dbnewusername" value="{{ dbnewusername }}" />	
 				{% if validationError and newusernameError %} <p>A username for the new user is required.</p> {% endif %}
 				
-				<input  class="span5" type="password" id="dbnewpassword" name="dbnewpassword"  value="{{ dbnewpassword }}" />	
+				<input  class="dbbox" type="password" id="dbnewpassword" name="dbnewpassword"  value="{{ dbnewpassword }}" />	
 				{% if validationError and newpasswordError %} <p>A password for the new user is required.</p> {% endif %}
 				
-				<input  class="span5" type="password" id="dbconfirmpassword" name="dbconfirmpassword" />
+				<input  class="dbbox" type="password" id="dbconfirmpassword" name="dbconfirmpassword" />
 				{% if validationError and passwordConfirmError %} <p>The passwords do not match.</p> {% endif %}
 			</div>
 		
@@ -46,21 +46,21 @@
 
 		<label class="radio" id="euser">
 		  <input class="radiodot" type="radio" name="dbusersetting" id="dbexistinguser" value="existing" {{ dbnewuser ? '' : 'checked' }}>
-		  <h6>Existing user</h6>
+		  Existing user
 		</label>
 		
 		<div class="rootpw" id="existingusersettings">
 		
                     <div class="span2" id="labels">
-                            <label class="label clearfix" for="dbuser" id="rpwlabel"> Username </label>
-                            <label class="label clearfix" for="dbpassword" id="rpwlabel"> Password </label>
+                            <label class="label clearfix" for="dbuser" id="rpw"> Username</label>
+                            <label class="label clearfix" for="dbpassword" id="rpw"> Password</label>
                     </div>
 
                     <div class="span5" id="labels">
-                            <input  class="span5" type="text" id="dbuser" name="dbuser" value="{{ dbuser }}" />  
+                            <input  class="dbbox" type="text" id="dbuser" name="dbuser" value="{{ dbuser }}" />  
                             {% if validationError and userError %} <p>The user's name is required.</p> {% endif %}
                             
-                            <input  class="span5" type="password" id="dbpassword" name="dbpassword" value="{{ dbpassword }}" />  
+                            <input  class="dbbox" type="password" id="dbpassword" name="dbpassword" value="{{ dbpassword }}" />  
                             {% if validationError and passwordError %} <p>The user's password is required.</p> {% endif %}
                     </div>
                 
@@ -68,7 +68,7 @@
             </form>
 	</section>
         
-    <div class="buttons clearfix">
+    <div class="buttons clearfix" id="btndbuser">
         
         {% if hasnextpage %}
         <a class="btn" id="next">NEXT</a>

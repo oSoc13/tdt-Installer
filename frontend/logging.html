@@ -7,8 +7,6 @@
 		<h3 class="hsmall">settings</h3>
 	</section>
 	
-	
-	
 	<section class="formbox">
 
 	<form action="#" method="post" id="configform">
@@ -18,8 +16,7 @@
 		
 			<div id="logging">
 				<input type="checkbox" class="c" id="logenabled" name="loggingenabled" {{ loggingenabled ? 'checked' : '' }} />
-				<label for="logenabled"> Logging </label>
-				{% if validationError and enabledError %} <p>This field is required</p> {% endif %}
+				<label for="logenabled"> <h6>Logging</h6></label>
 			</div>
 
 			<label class="label" for="logpath" id="path"> Path </label>

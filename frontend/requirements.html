@@ -16,11 +16,11 @@
   </head>
   <body>
     
-    <header align="center">
+    <header align="center" align="-moz-center">
       <img id="icon" src="frontend/img/tdt_icon.png" alt="icon">
     </header>
 
-    <section align="center" id="content">
+    <section align="center" align="-moz-center" id="content">
       <img id="icon" src="frontend/img/welcome.png" alt="Welcome">
     </section>
 
@@ -67,17 +67,15 @@
         </div>
 
       </div>
+
+      {# {% if requirementsok %} #}
+
+            <a class="btn" id="start" href="?page={{ currentpage + 1 }}">START</a>
+
+          {# {% endif %} #}
     
-      {% if requirementsok %}
-      <a class="btn" id="start" href="?page={{ currentpage + 1 }}">START</a>
-
-      <!--<a href="packages.html" title="Start">
-        <div class="button" id="start">
-          START
-        </div>
-      </a>-->
-      {% endif %}
-
+      
+ 
     </section>
 
 

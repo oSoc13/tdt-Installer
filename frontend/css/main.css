@@ -6,7 +6,12 @@ body {
 }
 
 header {
-  margin-top: 40px;
+  margin-top: 30px;
+}
+
+#icon {
+  margin: 0 auto;
+  display: block;
 }
 
 section {
@@ -14,7 +19,7 @@ section {
 }
 
 #requirements {
-  width: 700px;
+  width: 600px;
   -moz-border-radius: 11px;
   border-radius: 11px;
   background-color: #E8E5E0;
@@ -30,7 +35,6 @@ h3 {
 }
 
 #req {
-  /*float: left;*/
   margin-right: 4px;
   margin-bottom: 0;
 
@@ -64,6 +68,14 @@ Li {
   margin-left: 0;
 }
 
+.row {
+  margin-top: 10px;
+}
+
+form {
+  margin: 0;
+}
+
 .btn {
   background-color: #328D81;
   border-radius: 8px;
@@ -79,7 +91,8 @@ Li {
 }
 
 #start {
-  margin-left: 400px;
+  margin-left: 530px;
+  margin-top: 15px;
 
 }
 
@@ -169,6 +182,12 @@ ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
   margin-top:70px;
 }
 
+#output {
+    font-weight: 400;
+    font-family: 'Open Sans', sans-serif;
+    font-size: O.9em;
+}
+
 #packsmall {
   font-weight: 300;
   margin-top: 2px;
@@ -239,12 +258,20 @@ label {
 }
 
 .span2 {
-  margin-left: 40px;
+  margin-left: 0px;
   margin-right: 40px;
 }
 
 .formbox {
   margin-top: 25px;
+}
+
+#boxen {
+  margin-top: 15px;
+}
+
+#subdir {
+  margin-top: 20px;
 }
 
 .buttons {
@@ -263,9 +290,8 @@ label {
     width:100px;
     height:48px;
     display:block;
-    
-
 }
+
 #two {
     background:#E6DCCA;
     opacity: 20%;
@@ -282,9 +308,11 @@ label {
     margin-top: -40px;
     padding: 10px 15px;
 }
+
 #one:hover #two {
     display:block;
 }
+
 #last{
   margin-top: 34px;
 }
@@ -297,7 +325,21 @@ label {
   font-weight: 400;
   margin-left: 92px;
   margin-top: 40px;
+}
 
+#timezone {
+  margin-top: 19px;
+}
+
+.box {
+  margin-top: 17px;
+}
+#language {
+  margin-top: 18px;
+}
+
+#defaultformat {
+  margin-top: 18px;
 }
 
 .span2#labels {
@@ -305,16 +347,36 @@ label {
 }
 
 #path {
-  float: right;
-  margin-right: -54px;
+  font-size: 1.3em;
+  margin-top: 5px;
+  margin-left: 162px;
+}
+
+
+#rpw {
+  font-size: 1.3em;
+  margin-top: 5px;
+  margin-left: 45px;
 }
 
 #pathbox {
   margin-top: 80px;
 }
 
+#logpath {
+  margin-top: 84px
+}
+
 #pathinfo {
-  margin-top: 86px;
+  margin-top: 90px;
+}
+
+#cachehost {
+  margin-top: 19px;
+}
+
+#cacheport {
+  margin-top: 18px;
 }
 
 .radio {
@@ -325,7 +387,7 @@ label {
 
 h6 {
   margin-left: 10px;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 1em;
   float: left;
   margin-top: 0;
@@ -352,7 +414,6 @@ section.span5 {
 }
 
 #info{
-  margin-top: -10px;
   margin-left: 60px;
 }
 
@@ -371,11 +432,11 @@ section.span5 {
 }
 
 #euser {
-  margin-top: 250px;
+  margin-top: 280px;
 }
 
-#dbuser {
-  margin-top: 40px;
+.dbbox {
+  margin-top: 10px;
 }
 
 #edb {
@@ -397,10 +458,19 @@ section.span5 {
   height: 221px;
 }
 
-.box {
-  margin-top: 16px;
-}
-
 .info#helpicon{
   margin-top:35px;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#sum {
+  margin-left: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#btndbuser {
+  margin-top: 120px;
 }
