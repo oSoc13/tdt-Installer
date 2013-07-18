@@ -68,11 +68,11 @@
 
       </div>
 
-      {# {% if requirementsok %} #}
+      {% if requirementsok %}
 
-            <a class="btn" id="start" href="?page={{ currentpage + 1 }}">START</a>
-
-          {# {% endif %} #}
+            <div id="startbutton"><img class="cross" src="frontend/img/cross.png" alt="cross" />JavaScript enabled</div>
+      
+      {% endif %}
     
       
  
@@ -81,5 +81,6 @@
 
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="frontend/js/bootstrap.min.js"></script>
+    <script src="scripts/CreateStartButton.js"></script>
   </body>
 </html>

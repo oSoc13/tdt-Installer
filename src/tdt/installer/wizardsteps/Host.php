@@ -67,7 +67,9 @@ class Host extends WizardStep
     private function getSubDirectory()
     {
         $dir = explode('/', $_SERVER['REQUEST_URI']);
+        $path = array_slice($dir, 0, -2);
+        $path = array_slice($path, 1);
         
-        return $dir[count($dir) - 3] . '/public/';
+        return implode('/', $path) . '/public/';
     }
 }
