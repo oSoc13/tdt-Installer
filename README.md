@@ -11,7 +11,7 @@ This is an installer for the Datatank.
 * Git (in your PATH)
 * Composer (in your PATH)
 
-At the moment, Windows is not supported. The installer has been tested successfully on Linux and OS X.
+Windows is not supported. The installer has been tested successfully on Linux and OS X.
 
 ## Installation instructions
 

@@ -17,12 +17,12 @@ class PackageDownloader
         
         // When checking the requirements, we saved the composer location to the session!
         $command = $session->get('composer').' update -d .. 2>&1';
+        
         $descriptorspec = array(
             0 => array("pipe", "r"),   // stdin is a pipe that the child will read from
             1 => array("pipe", "w"),   // stdout is a pipe that the child will write to
             2 => array("pipe", "w")    // stderr is a pipe that the child will write to
         );
-        flush();
         
         // To run properly, composer needs a COMPOSER_HOME environment var to be set,
         // but since we're not running it from cli, we need to set this var manually...
