@@ -26,11 +26,18 @@ $app->before(function (Request $request) {
     $request->getSession()->start();
 });
 
+/**
+ * The array containing all steps of the installer. These are the names of the PHP classes,
+ * and (in lowercase) also the names of the twig files to be shown.
+ */
 $wizardSteps = array('Requirements', 'InitialDownload', 'Packages', 'PackageDownload',
     'General', 'Host', 'Logging', 'Cache', 'Database', 'DatabaseAdvanced', 'DatabaseUser',
     'DatabaseDb', 'Finish');
 
-    
+/**
+ * The main start point of the installer. Normal installer page requests are processed
+ * here. The installer page number is set in the query string
+ */
 $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     // Get the current page number
     $getParams = $request->query->all();
@@ -67,6 +74,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     $className = 'tdt\\installer\\wizardsteps\\' . $wizardSteps[$step];
     $class = new $className();
     
+    // The array containing the variables to be sent to the twig page
     $pagevariables = array();
     $pagevariables['validationError'] = false;
     
@@ -78,7 +86,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
             $pagevariables = array_merge($pagevariables, $validationOutput);
             $pagevariables['validationError'] = true;
         } else {
-            // Go to finish if we choose a default database installation
+            // Go to finish if the user chose a default database installation
             $redirectPage = $app['session']->get('dbinstalldefault') === true ? count($wizardSteps) - 1 : ($step + 1);
             
             return $app->redirect('?page='.$redirectPage);
@@ -92,12 +100,18 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     return $app['twig']->render($page, $pagevariables);
 });
 
+/**
+ * Processes the request for a Git clone of the tdt/start package.
+ */
 $app->get('/gitclone', function () use ($app) {
     $gitcloner = new tdt\installer\GitCloner();
     
     return $app->json($gitcloner->getResult());
 });
 
+/**
+ * Processes the request for the Composer update
+ */
 $app->get('/packagedownload', function () use ($app) {
     $packageDownloader = new tdt\installer\PackageDownloader();
     
