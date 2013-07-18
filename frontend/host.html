@@ -20,7 +20,7 @@
 		<div class="span5" id="boxen">
 			
 			<input class="span5" type="text" id="hostname" name="hostname" value="{{ hostname }}" />
-			{% if validationError and hostnameError %} <p>Your hostname should look like &quot;http://example.com/&quot;.</p> {% endif %}
+			{% if validationError and hostnameError %} <p>Your hostname should look like &quot;http(s)://example.com/&quot;.</p> {% endif %}
 			
 			<input class="span5" type="text" id="subdir" name="subdir" value="{{ subdir }}" />
 			{% if validationError and subdirError %} <p>The sub directory should look like &quot;datatank/public/&quot;</p> {% endif %}
@@ -36,17 +36,17 @@
 
 			<div id="one">
 				<img id="first" class="info" src="frontend/img/info.png" alt="info">
-    			<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+    			<div id="two">The hostname of the machine your DataTank installation will run on. It should look like &quot;http(s)://example.com/&quot;</div>
 			</div>
 
 			<div id="one">
 				<img class="info" src="frontend/img/info.png" alt="info">
-				<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+				<div id="two">The subdirectory on your web server the DataTank will run in. It should look like &quot;datatank/public/&quot;</div>
 			</div>
 
 			<div id="one">
 				<img id="last" class="info" src="frontend/img/info.png" alt="info">
-				<div id="two">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis ultricies erat, vel venenatis dui dapibus non. Duis vel dictum turpis. Aliquam eget ante luctus, pharetra urna at, tempor felis. </div>
+				<div id="two">The default output format for DataTank resources.</div>
 			</div>
 		</div>
 		
