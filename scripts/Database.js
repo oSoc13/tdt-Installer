@@ -23,6 +23,6 @@ $( document ).ready(function() {
 }); 
 
 function setRootPasswordDisplay(shouldBeVisible) {
-    $("label[for='dbrootpassword']").css('display', shouldBeVisible ? 'block' : 'none');
-    $("#dbrootpassword").css('display', shouldBeVisible ? 'block' : 'none');
+    $("label[for='dbrootpassword']").css('display', shouldBeVisible ? 'inline' : 'none');
+    $("#dbrootpassword").css('display', shouldBeVisible ? 'inline' : 'none');
 }

@@ -4,22 +4,28 @@
 
 
 	<section id="contentsum">
-
-      <img class="span5" id="grats" src="frontend/img/congrats.png" alt="Congratulations">
-	
+    <div class="row offset3">
+      <img class="span5" id="grats" src="frontend/img/congrats.png" alt="Congratulations" />
+      </div>
+      
+      <div class="row">
 		<section id="Summary">
 
-			<h4 id="Stitle">Summary</h4>
+			<h3 id="Stitle">Summary</h3>
 
-		          <div class="span6" id="sum">
-                            <ul>
-		            {% for key, value in sessiondata %}
-		            <li>{{ key }}: {{ value }}</li>
+		          <div class="span9" id="sum">
+		            {% for title, settings in sessiondata %}
+                                <h4>{{ title }}</h4>
+                                <ul>
+                                {% for key, value in settings %}
+                                    <li>{{ key }}: {{ value }}</li>
+                                {% endfor %}
+                                </ul>
 		            {% endfor %}
 		            </ul>
-		          </div>
 		        
 	    </section>
+	    </div>
     </section>		
 	
 

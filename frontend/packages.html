@@ -12,7 +12,7 @@
             <div id="packlist">
                 {% for package in packages %}
                     <section class="packages">
-                            <input type="checkbox" class="c" id="{{ package.value }}" value="{{ package.value }}" name="packages[]" {% if package.name == 'Core' %} readonly checked {% endif %}/>
+                            <input type="checkbox" class="c" id="{{ package.value }}" value="{{ package.value }}" name="packages[]" {% if package.name == 'Core' %} disabled checked {% endif %}/>
                             <label for="{{ package.value }}"> {{ package.name }} </label>
                             <span class="help-block">{{ package.description }}</span>
                     </section>

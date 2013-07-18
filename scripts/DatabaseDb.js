@@ -23,9 +23,19 @@ $( document ).ready(function() {
 }); 
 
 function setNewSettingsDisplay(shouldBeVisible) {
-    $("#newdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
+    //$("#newdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
+    if(shouldBeVisible) {
+        $("#newdbsettings").show();
+    } else {
+        $("#newdbsettings").hide();
+    }
 }
 
 function setExistingSettingsDisplay(shouldBeVisible) {
-    $("#existingdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
+    //$("#existingdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
+    if(shouldBeVisible) {
+        $("#existingdbsettings").show();
+    } else {
+        $("#existingdbsettings").hide();
+    }
 }

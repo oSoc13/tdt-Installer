@@ -24,10 +24,24 @@ $( document ).ready(function() {
 
 function setNewSettingsDisplay(shouldBeVisible) {
     //$("label[for='newdbsettings']").css('display', shouldBeVisible ? 'block' : 'none');
-    $("#newusersettings").css('display', shouldBeVisible ? 'block' : 'none');
+    //$("#newusersettings").css('display', shouldBeVisible ? 'block' : 'none');
+    if(shouldBeVisible) {
+        $("#newusersettings").children().show();
+        $("#newusersettings").show();
+    } else {
+        $("#newusersettings").children().hide();
+        $("#newusersettings").hide();
+    }
 }
 
 function setExistingSettingsDisplay(shouldBeVisible) {
     //$("label[for='existingdbsettings']").css('display', shouldBeVisible ? 'block' : 'none');
-    $("#existingusersettings").css('display', shouldBeVisible ? 'block' : 'none');
+    //$("#existingusersettings").css('display', shouldBeVisible ? 'block' : 'none');
+    if(shouldBeVisible) {
+        $("#existingusersettings").children().show();
+        $("#existingusersettings").show();
+    } else {
+        $("#existingusersettings").children().hide();
+        $("#existingusersettings").hide();
+    }
 }

@@ -35,7 +35,7 @@ class SettingsCommitter
             return $result;
         }*/
         
-        return $copyResult & $dbResult;
+        return $copyResult;// & $dbResult;
     }
     
     private function copyFiles()

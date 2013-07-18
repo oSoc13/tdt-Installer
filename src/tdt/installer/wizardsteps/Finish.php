@@ -24,6 +24,14 @@ class Finish extends WizardStep
         return $returnarray;
     }
     
+    /**
+     * Writes the session data to the DataTank configuration files,
+     * sets up the database and copies the example DataTank files to
+     * usable files.
+     *
+     * @param Symfony\Component\HttpFoundation\Session\Session $session The session object,
+     * needed to commit the values.
+     */
     private function commitSettings($session) {
         $generalSettingsWriter = new \tdt\installer\GeneralSettingsWriter();
         $dbSettingsWriter = new \tdt\installer\DatabaseSettingsWriter();
@@ -41,42 +49,44 @@ class Finish extends WizardStep
     private function getSessionData($session) {
         $settings = array(); 
         
-        $settings['hostname'] = $session->get('hostname');
-        $settings['subdir'] = $session->get('subdir');
-        $settings['timezone'] = $session->get('timezone');
-        $settings['defaultlanguage'] = $session->get('defaultlanguage');
-        $settings['defaultformat'] = $session->get('defaultformat');
+        $settings['General']['Hostname'] = $session->get('hostname');
+        $settings['General']['Subdirectory'] = $session->get('subdir');
+        $settings['General']['Timezone'] = $session->get('timezone');
+        $settings['General']['Default language'] = 'English'; //$session->get('defaultlanguage');
+        $settings['General']['Default format'] = $session->get('defaultformat');
         
-        $settings['accesslogapache'] = $session->get('accesslogapache');
-        $settings['loggingenabled'] = $session->get('loggingenabled');
-        $settings['loggingpath'] = $session->get('logpath');
+        $settings['Logging']['Apache access log'] = $session->get('accesslogapache');
+        $settings['Logging']['Logging enabled'] = $session->get('loggingenabled') ? 'yes' : 'no';
+        $settings['Logging']['Logging path'] = $session->get('logpath');
         
-        $settings['cachesystem'] = $session->get('cachesystem');
-        $settings['cachehost'] = $session->get('cachehost');
-        $settings['cacheport'] = $session->get('cacheport');
+        $settings['Cache']['System'] = $session->get('cachesystem');
+        if($session->get('cachesystem') == 'MemCache') {
+            $settings['Cache']['Host'] = $session->get('cachehost');
+            $settings['Cache']['Port'] = $session->get('cacheport');
+        }
         
         if($session->get("dbinstalldefault")) {
-            $settings["system"] = "mysql";
-            $settings["host"] = "localhost";
-            $settings["name"] = "datatank".$session->get("company");
-            $settings["password"] = "datatank";
-            $settings["user"] = "datatank";
+            $settings['Database']["System"] = "MySQL";
+            $settings['Database']["Host"] = "localhost";
+            $settings['Database']["Name"] = "datatank".$session->get("company");
+            $settings['Database']["User"] = "datatank";
+            $settings['Database']["Password"] = "datatank";
         } else {
-            $settings["system"] = $session->get("dbsystem");
-            $settings["host"] = $session->get("dbhost");
+            $settings['Database']["System"] = "MySQL";
+            $settings['Database']["Host"] = $session->get("dbhost");
             
             if($session->get("dbnewuser")) {
-                $settings["user"] = $session->get("dbnewusername");
-                $settings["password"] = $session->get("dbnewpassword");
+                $settings['Database']["User"] = $session->get("dbnewusername");
+                $settings['Database']["Password"] = $session->get("dbnewpassword");
             } else {
-                $settings["user"] = $session->get("dbuser");
-                $settings["password"] = $session->get("dbpassword");
+                $settings['Database']["User"] = $session->get("dbuser");
+                $settings['Database']["Password"] = $session->get("dbpassword");
             }
             
             if($session->get("dbnewdb")) {
-                $settings["name"] = $session->get("dbnewname");
+                $settings['Database']["Name"] = $session->get("dbnewname");
             } else {
-                $settings["name"] = $session->get("dbname");
+                $settings['Database']["Name"] = $session->get("dbname");
             }
         }
         
