@@ -106,7 +106,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
 $app->get('/gitclone', function () use ($app) {
     $gitcloner = new tdt\installer\GitCloner();
     
-    return $app->json($gitcloner->getResult());
+    return $app->json($gitcloner->start());
 });
 
 /**

@@ -11,7 +11,7 @@ namespace tdt\installer;
  */
 class GitCloner
 {
-    public function getResult()
+    public function start()
     {
         $outputfile = 'settings/gitoutput.json';
         $tempdir = 'tdt/';
@@ -22,7 +22,6 @@ class GitCloner
             1 => array("pipe", "w"),   // stdout is a pipe that the child will write to
             2 => array("pipe", "w")    // stderr is a pipe that the child will write to
         );
-        flush();
         
         $process = proc_open($command, $descriptorspec, $pipes, realpath('./'), array());
         
@@ -35,14 +34,17 @@ class GitCloner
                 file_put_contents($outputfile, json_encode($json));
                 flush();
             }
+            
+            $status = proc_get_status($process);
+            $status = $status['exitcode'];
         }
         
         proc_close($process);
         
         // TODO It seems quite difficult to get the exit code of a proc_open process,
         // therefore we are for now using a simpler method to check if the git cloning worked:
-        // git cloning was successful if we now have the cloned directory..
-        $status = file_exists($tempdir);
+        // git cloning was successful if we now have the cloned directory with a composer.json
+        $status = file_exists($tempdir.'composer.json');
         
         if($status === true)
         {
