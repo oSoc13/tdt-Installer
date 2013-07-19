@@ -92,7 +92,6 @@ class Requirements extends WizardStep
                 
                 return true;
             }
-            var_dump($filename);
         }
         
         return false;

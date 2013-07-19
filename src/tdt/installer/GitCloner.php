@@ -15,7 +15,9 @@ class GitCloner
     {
         $outputfile = 'settings/gitoutput.json';
         $tempdir = 'tdt/';
-        $command = "git clone https://github.com/tdt/start.git {$tempdir}";
+        $json = json_decode(file_get_contents('settings/tdt-start.json'));
+        $link = $json->link;
+        $command = "git clone {$link} {$tempdir}";
         
         $descriptorspec = array(
             0 => array("pipe", "r"),   // stdin is a pipe that the child will read from
@@ -34,16 +36,12 @@ class GitCloner
                 file_put_contents($outputfile, json_encode($json));
                 flush();
             }
-            
-            $status = proc_get_status($process);
-            $status = $status['exitcode'];
         }
         
         proc_close($process);
         
-        // TODO It seems quite difficult to get the exit code of a proc_open process,
-        // therefore we are for now using a simpler method to check if the git cloning worked:
-        // git cloning was successful if we now have the cloned directory with a composer.json
+        // It seems quite difficult to get the correct exit code of the proc_open process,
+        // therefore we need to use a hack to check if the command executed correctly..
         $status = file_exists($tempdir.'composer.json');
         
         if($status === true)
@@ -63,7 +61,7 @@ class GitCloner
             
             \tdt\installer\LogWriter::write("Moving to .. and deleting {$tempdir}: " . ($rmdir ? 'OK' : 'Error'));
             
-            $result = $status;
+            $result = true;
         
         } else {
             $tmpfile = 'starttmp.zip';

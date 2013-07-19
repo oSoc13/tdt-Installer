@@ -46,7 +46,8 @@ class PackageDownloader
         
         $json = json_decode(file_get_contents($outputfile));
         $json->finished = true;
-        \tdt\installer\LogWriter::write("Composer update: " . ($status === 0 ? 'OK' : 'Error'));
+        $json->status = $status === 0;
+        \tdt\installer\LogWriter::write("Composer update: " . ($status === 0 ? 'OK' : 'Error (check composeroutput.json for error information)'));
         file_put_contents($outputfile, json_encode($json));
         
         return 0;
