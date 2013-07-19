@@ -13,9 +13,8 @@ class DatabaseSettingsWriter {
     private $configPath = "../app/config/";
     
     public function writeDatabaseData($session) {
-        //$oldDbSettingsFile = $this->configPath."db.example.json";
+        
         $dbSettingsFile = $this->configPath."db.json";
-        //copy($oldDbSettingsFile, $dbSettingsFile);
         
         $dbSettings = array();
         

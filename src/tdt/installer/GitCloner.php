@@ -48,10 +48,8 @@ class GitCloner {
             \tdt\installer\LogWriter::write("Git clone successful.");
             
             $files = scandir($tempdir);
-            foreach($files as $file)
-            {
-                if($file != '.' && $file != '..')
-                {
+            foreach($files as $file) {
+                if($file != '.' && $file != '..') {
                     rename($tempdir.$file, "../{$file}");
                 }
             }
@@ -84,11 +82,9 @@ class GitCloner {
                 $zip->close();
                 
                 $files = scandir($tmpdir);
-                foreach($files as $file)
-                {
+                foreach($files as $file) {
                     
-                    if($file != '.' && $file != '..')
-                    {
+                    if($file != '.' && $file != '..') {
                         rename($tmpdir.$file, "../{$file}");
                     }
                 }
