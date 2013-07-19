@@ -1,6 +1,6 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
  * Class for the step of the installer where the tdt/start packages are downloaded
@@ -8,10 +8,9 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class InitialDownload extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class InitialDownload extends InstallerStep {
+
+    public function getPageContent($session) {
         return array(
             'haspreviouspage' => false,
             'hasnextpage' => false,

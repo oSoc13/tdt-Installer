@@ -8,13 +8,12 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class SettingsCommitter
-{
+class SettingsCommitter {
+
     private $configPath = "../app/config/";
     private $publicPath = "../public/";
 
-    public function commit($session)
-    {
+    public function commit($session) {
         $copyResult = $this->copyFiles();
         
         // We need to mess with the database if the user chose the default settings,
@@ -31,8 +30,7 @@ class SettingsCommitter
         return $copyResult & $dbResult;
     }
     
-    private function copyFiles()
-    {
+    private function copyFiles() {
         $oldCoresFile = $this->configPath."cores.example.json";
         $newCoresFile = $this->configPath."cores.json";
         $coreresult = copy($oldCoresFile, $newCoresFile);
@@ -51,8 +49,7 @@ class SettingsCommitter
         return $coreresult & $authresult & $indexresult;
     }
     
-    private function createDatabase($session)
-    {
+    private function createDatabase($session) {
         $dbconfig = json_decode(file_get_contents($this->configPath.'db.json'));
         
         $host = $dbconfig->host;
@@ -62,8 +59,7 @@ class SettingsCommitter
         
         $dsn = "mysql:host={$host}";
 
-        try
-        {
+        try {
             $dbh = new \PDO($dsn, 'root', $session->get('dbrootpassword'));
             
             if($session->get('dbinstalldefault') || $session->get('dbnewdb')) {
@@ -79,9 +75,7 @@ class SettingsCommitter
             $stmt->execute(array($user, $host));
             
             \tdt\installer\LogWriter::write('Database actions successful.');
-        }
-        catch (\PDOException $e)
-        {
+        } catch (\PDOException $e) {
             $logmessage = 'Database error: ' . $e->getMessage();
             \tdt\installer\LogWriter::write($logmessage);
             return false;

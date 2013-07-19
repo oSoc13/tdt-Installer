@@ -11,6 +11,8 @@ This is an installer for the Datatank.
 * Git (in your PATH)
 * Composer (in your PATH)
 
+Note that if the installer does not detect Git or Composer in your path, try putting it somewhere else in your path (`/usr/bin` usually works).
+
 Windows is not supported. The installer has been tested successfully on Linux and OS X.
 
 ## Installation instructions

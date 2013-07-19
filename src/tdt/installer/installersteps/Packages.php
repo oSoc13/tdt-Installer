@@ -1,6 +1,6 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
  * Class for the
@@ -8,10 +8,9 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Packages extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class Packages extends InstallerStep {
+
+    public function getPageContent($session) {
         return array(
             'haspreviouspage' => false,
             'packages' => $this->getPackageInfo(),
@@ -21,28 +20,24 @@ class Packages extends WizardStep
     /**
      * Writes the selected packages to the composer file.
      */
-    public function writeData($data, $session)
-    {
+    public function writeData($data, $session) {
         $packageSelection = new \tdt\installer\PackageSelection();
     
         $packages = array();
         
-        foreach($data->get('packages') as $package)
-        {
+        foreach($data->get('packages') as $package) {
             $packages[] = $package;
         }
         
         $packageSelection->writeData($packages);
     }
     
-    private function getPackageInfo()
-    {
+    private function getPackageInfo() {
         $packageSettings = json_decode(file_get_contents('settings/packages.json'), true);
         
         $result = array();
         
-        for($i = 0; $i < count($packageSettings); $i++)
-        {
+        for($i = 0; $i < count($packageSettings); $i++) {
             $packageInfo = array();
             $packageInfo['name'] = $packageSettings[$i]['name'];
             $packageInfo['description'] = $packageSettings[$i]['description'];

@@ -14,7 +14,7 @@ $loader->add('tdt\\installer\\', __DIR__.'/src');
 
 $app = new Silex\Application();
 
-$app['debug'] = true;
+//$app['debug'] = true;
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 
@@ -28,7 +28,7 @@ $app->before(function (Request $request) {
 
 /**
  * The array containing all steps of the installer. These are the names of the PHP classes,
- * and (in lowercase) also the names of the twig files to be shown.
+ * and (in lowercase) also the names of the twig files to be shown (in frontend/).
  */
 $wizardSteps = array('Requirements', 'InitialDownload', 'Packages', 'PackageDownload',
     'General', 'Host', 'Logging', 'Cache', 'Database', 'DatabaseAdvanced', 'DatabaseUser',
@@ -70,8 +70,11 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
     
     $app['session']->set('lastVisitedStep', $step);
     
+    // The twig page to be shown
     $page = strtolower($wizardSteps[$step].'.html');
-    $className = 'tdt\\installer\\wizardsteps\\' . $wizardSteps[$step];
+    
+    // The PHP class to be called
+    $className = 'tdt\\installer\\installersteps\\' . $wizardSteps[$step];
     $class = new $className();
     
     // The array containing the variables to be sent to the twig page

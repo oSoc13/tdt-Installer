@@ -8,12 +8,10 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class SettingsWriter
-{ 
-    public function writeData($data, $session)
-    {
-        foreach($data as $key => $value)
-        {
+class SettingsWriter {
+
+    public function writeData($data, $session) {
+        foreach($data as $key => $value) {
             $session->set($key, $value);
         }
     }

@@ -1,5 +1,5 @@
 /**
- * Script for submitting configuration forms
+ * Script for submitting the configuration forms
  * 
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium

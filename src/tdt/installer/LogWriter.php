@@ -8,8 +8,8 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class LogWriter
-{ 
+class LogWriter { 
+
     const logfile = 'settings/installer.log';
     
     public static function write($data) {

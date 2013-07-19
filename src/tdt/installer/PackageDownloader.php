@@ -8,10 +8,9 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class PackageDownloader
-{
-    public function start($session)
-    {
+class PackageDownloader {
+
+    public function start($session) {
         $outputfile = "settings/composeroutput.json";
         $composerFile = '../composer.json';
         

@@ -1,15 +1,15 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
- * Abstract base class for steps in the installer wizard.
+ * Abstract base class for steps in the installer.
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-abstract class WizardStep
-{ 
+abstract class InstallerStep { 
+
     /**
      * Returns the array with variables to be used on the page.
      * 

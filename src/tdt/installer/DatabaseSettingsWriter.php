@@ -8,12 +8,11 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class DatabaseSettingsWriter
-{ 
+class DatabaseSettingsWriter { 
+
     private $configPath = "../app/config/";
     
-    public function writeDatabaseData($session)
-    {
+    public function writeDatabaseData($session) {
         //$oldDbSettingsFile = $this->configPath."db.example.json";
         $dbSettingsFile = $this->configPath."db.json";
         //copy($oldDbSettingsFile, $dbSettingsFile);

@@ -1,5 +1,5 @@
 /**
- * Script for the first step of the database configuration
+ * Script for the advanced database configuration.
  * 
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
@@ -23,9 +23,6 @@ $( document ).ready(function() {
 }); 
 
 function setNewSettingsDisplay(shouldBeVisible) {
-    console.log('setNewSettingsDisplay');
-
-    //$("#newdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
     if(shouldBeVisible) {
         $("#newdbsettings").show();
     } else {
@@ -34,9 +31,6 @@ function setNewSettingsDisplay(shouldBeVisible) {
 }
 
 function setExistingSettingsDisplay(shouldBeVisible) {
-    console.log('setExistingSettingsDisplay');
-
-    //$("#existingdbsettings").css('display', shouldBeVisible ? 'block' : 'none');
     if(shouldBeVisible) {
         $("#existingdbsettings").show();
     } else {

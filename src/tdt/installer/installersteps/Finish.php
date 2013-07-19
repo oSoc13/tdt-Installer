@@ -1,6 +1,6 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
  * Class for the final step of the Datatank installer
@@ -8,10 +8,9 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Finish extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class Finish extends InstallerStep {
+
+    public function getPageContent($session) {
         $returnarray = array(
             'haspreviouspage' => false,
             'sessiondata' => $this->getSessionData($session),

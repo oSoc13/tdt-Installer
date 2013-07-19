@@ -1,5 +1,7 @@
 /**
  * Script for the 4th step of the installer (i.e. downloading selected packages using composer)
+ * The packagedownload url is called via AJAX; the output of the Composer update is updated
+ * every 500ms by checking the settings/composeroutput.json file.
  * 
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
@@ -23,6 +25,10 @@ $( document ).ready(function() {
     
 });
 
+/**
+ * Updates the output of the Composer update command.
+ * When finished, it will redirect to the next installer step.
+ */
 function updateOutputzone(zone)
 {
     $.ajax({

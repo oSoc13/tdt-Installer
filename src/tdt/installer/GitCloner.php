@@ -9,10 +9,9 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class GitCloner
-{
-    public function start()
-    {
+class GitCloner {
+
+    public function start() {
         $outputfile = 'settings/gitoutput.json';
         $tempdir = 'tdt/';
         $json = json_decode(file_get_contents('settings/tdt-start.json'));

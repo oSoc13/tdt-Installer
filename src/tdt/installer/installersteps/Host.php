@@ -1,6 +1,6 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
  * Class for the step of the installer where the host settings are configured
@@ -8,10 +8,9 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Host extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class Host extends InstallerStep {
+
+    public function getPageContent($session) {
         return array(
             'haspreviouspage' => true,
             'hostname' => $session->get('hostname') !== null ? $session->get('hostname') : $this->findDatatankHostname(),
@@ -20,8 +19,7 @@ class Host extends WizardStep
         );
     }
     
-    public function writeData($data, $session)
-    {
+    public function writeData($data, $session) {
         $settingsWriter = new \tdt\installer\SettingsWriter();
         
         $writeData = array();
@@ -32,8 +30,7 @@ class Host extends WizardStep
         $settingsWriter->writeData($writeData, $session);
     }
     
-    public function validate($data)
-    {
+    public function validate($data) {
         $hostnameError = preg_match('/^(https?:\/\/).+\/$/', $data->get('hostname')) === 0;
         $subdirError = preg_match('/^.+\/$/', $data->get('subdir')) === 0;
         $formatError = $data->get('defaultformat') !== 'json' && $data->get('defaultformat') !== 'xml';
@@ -50,8 +47,7 @@ class Host extends WizardStep
      * the protocol, e.g. http://example.com/
      * @return string 
      */
-    private function findDatatankHostname()
-    {
+    private function findDatatankHostname() {
         $httpsOn = isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"]==="on" || $_SERVER["HTTPS"]===1 || $_SERVER["SERVER_PORT"]===443);
         $result = $httpsOn ? "https://" : "http://";
         $result .= gethostname();
@@ -64,8 +60,7 @@ class Host extends WizardStep
      * I.e. the public/ subdir of the directory above the 'install' directory.
      * @return string The directory in which the datatank is installed.
      */
-    private function getSubDirectory()
-    {
+    private function getSubDirectory() {
         $dir = explode('/', $_SERVER['REQUEST_URI']);
         $path = array_slice($dir, 0, -2);
         $path = array_slice($path, 1);

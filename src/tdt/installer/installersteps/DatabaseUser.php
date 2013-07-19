@@ -1,6 +1,6 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
  * Class for the step of the installer for the advanced db user configuration
@@ -8,10 +8,9 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class DatabaseUser extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class DatabaseUser extends InstallerStep {
+
+    public function getPageContent($session) {
         return array(
             'haspreviouspage' => true,
             'dbnewuser' => $session->get('dbnewuser') !== null ? $session->get('dbnewuser') : true,
@@ -23,8 +22,7 @@ class DatabaseUser extends WizardStep
         );
     }
     
-    public function writeData($data, $session)
-    {
+    public function writeData($data, $session) {
         $settingsWriter = new \tdt\installer\SettingsWriter();
         
         $writeData = array();
@@ -43,8 +41,7 @@ class DatabaseUser extends WizardStep
         $settingsWriter->writeData($writeData, $session);
     }
     
-    public function validate($data)
-    {
+    public function validate($data) {
         $choiceError = $data->get('dbusersetting') !== 'new' && $data->get('dbusersetting') !== 'existing';
         
         if(!$choiceError && $data->get('dbusersetting') === 'new') {

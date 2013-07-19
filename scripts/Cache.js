@@ -1,5 +1,7 @@
 /**
- * Script for the cache settings step of the installer
+ * Script for the cache settings step of the installer.
+ * It checks if Memcache is selected and if not, disables
+ * the system and host settings on the page.
  * 
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium

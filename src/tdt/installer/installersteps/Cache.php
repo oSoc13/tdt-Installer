@@ -1,17 +1,16 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
- * Class for the step of the installer where the selected packages are downloaded
+ * Class for the step of the installer where the cache settings are configured.
  *
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Cache extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class Cache extends InstallerStep {
+
+    public function getPageContent($session) {
         return array(
             'haspreviouspage' => true,
             'cachingoptions' => $this->getCachingChoices(),
@@ -21,8 +20,7 @@ class Cache extends WizardStep
         );
     }
     
-    public function writeData($data, $session)
-    {
+    public function writeData($data, $session) {
         $settingsWriter = new \tdt\installer\SettingsWriter();
         
         $writeData = array();
@@ -33,8 +31,7 @@ class Cache extends WizardStep
         $settingsWriter->writeData($writeData, $session);
     }
     
-    public function validate($data)
-    {
+    public function validate($data) {
         $cachesystemError = $data->get('cachesystem') !== 'NoCache' && $data->get('cachesystem') !== 'MemCache';
         if($data->get('cachesystem') === 'MemCache') {
             $hostError = $data->get('cachehost') === null;
@@ -56,8 +53,7 @@ class Cache extends WizardStep
      * added to the options.
      * @return array
      */
-    private function getCachingChoices()
-    {
+    private function getCachingChoices() {
         $result['NoCache'] = 'NoCache';
         if(class_exists('Memcache')) $result['MemCache'] = 'MemCache';
         

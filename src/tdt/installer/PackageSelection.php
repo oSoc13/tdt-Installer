@@ -8,10 +8,9 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class PackageSelection
-{
-    public function writeData($input)
-    {
+class PackageSelection {
+
+    public function writeData($input) {
         $composerFile = '../composer.json';
         
         $packageSettings = json_decode(file_get_contents('settings/packages.json'));

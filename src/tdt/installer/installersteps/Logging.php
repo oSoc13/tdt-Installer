@@ -1,6 +1,6 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
  * Class for the step of the installer where the logging is configured
@@ -8,10 +8,9 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Logging extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class Logging extends InstallerStep {
+
+    public function getPageContent($session) {
         return array(
             'haspreviouspage' => true,
             'accesslogapache' => $session->get('accesslogapache') !== null ? $session->get('accesslogapache') : '/var/log/apache2/access.log',
@@ -20,8 +19,7 @@ class Logging extends WizardStep
         );
     }
     
-    public function writeData($data, $session)
-    {
+    public function writeData($data, $session) {
         $settingsWriter = new \tdt\installer\SettingsWriter();
         
         $writeData = array();
@@ -32,8 +30,7 @@ class Logging extends WizardStep
         $settingsWriter->writeData($writeData, $session);
     }
     
-    public function validate($data)
-    {
+    public function validate($data) {
         $apachelogError = preg_match('/^.*access.log$/', $data->get('accesslogapache')) === 0;
         $logpathError = $data->get('logpath') === null;
         

@@ -10,17 +10,15 @@ namespace tdt\installer;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class GeneralSettingsWriter
-{ 
+class GeneralSettingsWriter { 
+
     private $configPath = "../app/config/";
     
-    public function writeGeneralData($session)
-    {
-        //$oldGeneralSettingsFile = $this->configPath."general.example.json";
-        $generalSettingsFile = $this->configPath."general.json";
-        //copy($oldGeneralSettingsFile, $generalSettingsFile);
+    public function writeGeneralData($session) {
         
-        $generalSettings = array(); //json_decode(file_get_contents($generalSettingsFile), true);
+        $generalSettingsFile = $this->configPath."general.json";
+        
+        $generalSettings = array();
         
         $generalSettings['hostname'] = $session->get('hostname');
         $generalSettings['subdir'] = $session->get('subdir');

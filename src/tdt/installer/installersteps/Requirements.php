@@ -1,6 +1,6 @@
 <?php
 
-namespace tdt\installer\wizardsteps;
+namespace tdt\installer\installersteps;
 
 /**
  * Class for the requirements check step of the installer
@@ -8,10 +8,9 @@ namespace tdt\installer\wizardsteps;
  * @author Benjamin Mestdagh
  * @copyright 2013 by 0KFN Belgium
  */
-class Requirements extends WizardStep
-{
-    public function getPageContent($session)
-    {
+class Requirements extends InstallerStep {
+
+    public function getPageContent($session) {
         $result = array();
         $result['writable'] = $this->directoryIsWritable();
         $result['mysqlenabled'] = $this->phpModuleEnabled('pdo_mysql');
@@ -43,8 +42,7 @@ class Requirements extends WizardStep
      * @param string Name of the module
      * @return boolean
      */
-    private function phpModuleEnabled($module)
-    {
+    private function phpModuleEnabled($module) {
         return extension_loaded($module);
     }
     
@@ -53,8 +51,7 @@ class Requirements extends WizardStep
      * @param string Name of the function
      * @return boolean
      */
-    private function phpFunctionExists($function)
-    {
+    private function phpFunctionExists($function) {
         return function_exists($function);
     }
     
@@ -63,8 +60,7 @@ class Requirements extends WizardStep
      * @param string Name of the module
      * @return boolean
      */
-    private function apacheModuleEnabled($module)
-    {
+    private function apacheModuleEnabled($module) {
         return array_search($module, apache_get_modules()) !== FALSE;
     }
     
@@ -74,8 +70,7 @@ class Requirements extends WizardStep
      * the session.
      * @return boolean
      */
-    private function composerInstalled($session)
-    {
+    private function composerInstalled($session) {
         $composerCheck = $this->applicationInstalledCheck('composer');
         $filename = implode('', $composerCheck['output']);
         
@@ -101,8 +96,7 @@ class Requirements extends WizardStep
      * Checks whether Git is installed.
      * @return boolean
      */
-    private function gitInstalled()
-    {
+    private function gitInstalled() {
         $gitCheck = $this->applicationInstalledCheck('git');
         return $gitCheck['status'] === 0;
     }
