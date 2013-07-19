@@ -21,6 +21,10 @@ class Finish extends WizardStep
         
         $session->invalidate();
         
+        if($commitResult == false) {
+            throw new \Exception();
+        }
+        
         return $returnarray;
     }
     
@@ -37,9 +41,11 @@ class Finish extends WizardStep
         $dbSettingsWriter = new \tdt\installer\DatabaseSettingsWriter();
         $committer = new \tdt\installer\SettingsCommitter();
         
-        $generalSettingsWriter->writeGeneralData($session);
-        $dbSettingsWriter->writeDatabaseData($session);
-        $committer->commit($session);
+        $generalresult = $generalSettingsWriter->writeGeneralData($session);
+        $dbresult = $dbSettingsWriter->writeDatabaseData($session);
+        $commitresult = $committer->commit($session);
+        
+        return $generalresult & $dbresult & $commitresult;
     }
     
     /**

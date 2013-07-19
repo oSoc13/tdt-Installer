@@ -93,11 +93,15 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
         }
     }
     
-    $pagevariables['currentpage'] = $step;
-    $pagevariables['hasnextpage'] = $step < count($wizardSteps);
-    $pagevariables = array_merge($pagevariables, $class->getPageContent($app['session']));
+    try {
+        $pagevariables['currentpage'] = $step;
+        $pagevariables['hasnextpage'] = $step < count($wizardSteps);
+        $pagevariables = array_merge($pagevariables, $class->getPageContent($app['session']));
 
-    return $app['twig']->render($page, $pagevariables);
+        return $app['twig']->render($page, $pagevariables);
+    } catch (Exception $e) {
+        return $app['twig']->render('error.html', array('logs' => file_get_contents('settings/installer.log')));
+    }
 });
 
 /**

@@ -35,20 +35,20 @@ class SettingsCommitter
     {
         $oldCoresFile = $this->configPath."cores.example.json";
         $newCoresFile = $this->configPath."cores.json";
-        $result = copy($oldCoresFile, $newCoresFile);
+        $coreresult = copy($oldCoresFile, $newCoresFile);
+        \tdt\installer\LogWriter::write('Copying cores.json example file: ' . ($coreresult ? 'OK' : 'Error'));
         
         $oldAuthFile = $this->configPath."auth.example.json";
         $newAuthFile = $this->configPath."auth.json";
-        $result = $result & copy($oldAuthFile, $newAuthFile);
+        $authresult = copy($oldAuthFile, $newAuthFile);
+        \tdt\installer\LogWriter::write('Copying auth.json example file: ' . ($authresult ? 'OK' : 'Error'));
         
-        $result = $result & copy($this->publicPath."index.example.php", $this->publicPath."index.php");
+        $indexresult = copy($this->publicPath."index.example.php", $this->publicPath."index.php");
         
-        if($result === false) $result = 'An error occured while copying DataTank configuration files!';
+        //$logmessage = 'Copying example files: ' . ($result ? 'OK' : 'Error');
+        \tdt\installer\LogWriter::write('Copying index.php example file: ' . ($indexresult ? 'OK' : 'Error'));
         
-        $logmessage = 'Copying example files: ' . ($result ? 'OK' : 'Error');
-        \tdt\installer\LogWriter::write($logmessage);
-        
-        return $result;
+        return $coreresult & $authresult & $indexresult;
     }
     
     private function createDatabase($session)
@@ -84,7 +84,7 @@ class SettingsCommitter
         {
             $logmessage = 'Database error: ' . $e->getMessage();
             \tdt\installer\LogWriter::write($logmessage);
-            return 'An error occured while performing database tasks!';
+            return false;
         }
         
         return true;
