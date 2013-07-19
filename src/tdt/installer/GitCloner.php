@@ -65,9 +65,10 @@ class GitCloner
         
         } else {
             $tmpfile = 'starttmp.zip';
-            $tmpdir = '../start-master/';
             $json = json_decode(file_get_contents('settings/tdt-start.json'));
             $link = $json->zip;
+            $dir = $json->zipdirname;
+            $tmpdir = "../{$dir}/";
             
             $json = json_decode(file_get_contents($outputfile));
             $json->output .= "\nFalling back to ZIP download...";
