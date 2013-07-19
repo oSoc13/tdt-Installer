@@ -29,7 +29,7 @@ function updateOutputzone(zone)
         url: "settings/composeroutput.json",
         dataType: "json",
         success: function (response) {
-            if(response.finished === true) {
+            if(response.finished === true && response.success === true) {
                 window.location.href = "?page=4";
             } else {
                 $("#"+zone).empty();

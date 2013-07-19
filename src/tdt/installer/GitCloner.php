@@ -66,18 +66,20 @@ class GitCloner
         } else {
             $tmpfile = 'starttmp.zip';
             $tmpdir = '../start-master/';
-            $link = 'https://github.com/tdt/start/archive/master.zip';
+            $json = json_decode(file_get_contents('settings/tdt-start.json'));
+            $link = $json->zip;
             
             $json = json_decode(file_get_contents($outputfile));
-            $json->output .= "\n\nFalling back to ZIP download...";
-            file_put_contents($outputfile, json_encode($json));
-            file_put_contents($tmpfile, fopen($link, 'r'));
+            $json->output .= "\nFalling back to ZIP download...";
             \tdt\installer\LogWriter::write("Falling back to zip download.");
+            
+            file_put_contents($outputfile, json_encode($json));
+            $linkOpen = file_put_contents($tmpfile, fopen($link, 'r'));
             
             $zip = new \ZipArchive();
             
             $res = $zip->open('starttmp.zip');
-            if ($res === TRUE) {
+            if ($res === true && $linkOpen != false) {
                 $zip->extractTo('..');
                 $zip->close();
                 
@@ -96,7 +98,7 @@ class GitCloner
                 
                 $result = true;
             } else {
-                $json->output .= "There was an error, even ZIP download failed...";
+                $json->output .= "\nThere was an error, even ZIP download failed...";
                 file_put_contents($outputfile, json_encode($json));
                 \tdt\installer\LogWriter::write("Zip download failed.");
                 
