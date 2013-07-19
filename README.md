@@ -4,7 +4,7 @@ This is an installer for the Datatank.
 
 ## Requirements
 
-* A web server
+* A web server (Apache is recommended)
 * PHP >= 5.3
 * A database server (MySQL is recommended)
 * Curl

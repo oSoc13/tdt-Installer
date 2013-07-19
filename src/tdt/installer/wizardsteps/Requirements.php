@@ -17,7 +17,7 @@ class Requirements extends WizardStep
         $result['mysqlenabled'] = $this->phpModuleEnabled('pdo_mysql');
         $result['mysqlversionok'] = $this->mysqlVersionIsCorrect();
         $result['curl'] = $this->phpModuleEnabled('curl');
-        $result['exec'] = $this->phpFunctionExists('exec');
+        $result['exec'] = $this->phpFunctionExists('exec') && $this->phpFunctionExists('proc_open');
         $result['modrewrite'] = $this->apacheModuleEnabled('mod_rewrite');
         $result['git'] = $this->gitInstalled();
         $result['composer'] = $this->composerInstalled($session);
