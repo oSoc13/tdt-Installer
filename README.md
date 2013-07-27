@@ -13,7 +13,7 @@ This is an installer for the Datatank.
 
 Note that if the installer does not detect Git or Composer in your path, try putting it somewhere else in your path (`/usr/bin` usually works).
 
-Make sure your `www` user has write permission in its own directory, the settings directory and its parent directory (where the DataTank will be installed). This is checked when you start the installer.
+Make sure your `www` user has write permission in the installer's own directory, the settings directory and the installer's parent directory (where the DataTank will be installed). This is checked when you start the installer.
 
 Windows is not supported. The installer has been tested successfully on Linux and OS X.
 
