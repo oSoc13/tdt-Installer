@@ -14,7 +14,7 @@ class Cache extends InstallerStep {
         return array(
             'haspreviouspage' => true,
             'cachingoptions' => $this->getCachingChoices(),
-            'cachesystem' => $session->get('cachesystem') !== null ? $session->get('cachesystem') : 'NoCache',
+            'cachesystem' => $session->get('cachesystem') !== null ? $session->get('cachesystem') : 'MemCache',
             'cachehost' => $session->get('cachehost') !== null ? $session->get('cachehost') : 'localhost',
             'cacheport' => $session->get('cacheport') !== null ? $session->get('cacheport') : 11211,
         );
@@ -54,8 +54,8 @@ class Cache extends InstallerStep {
      * @return array
      */
     private function getCachingChoices() {
+        /*if(class_exists('Memcache'))*/ $result['MemCache'] = 'MemCache';
         $result['NoCache'] = 'NoCache';
-        if(class_exists('Memcache')) $result['MemCache'] = 'MemCache';
         
         return $result;
     }

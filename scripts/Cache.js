@@ -18,14 +18,14 @@ $( document ).ready(function() {
 });
 
 function checkCacheSystem() {
-    if( $("#cachesystem").attr('value') == 'NoCache') {
-        toggleCacheSettingsEnabled(false);
+    if( $("#cachesystem").val() == 'MemCache') {
+        toggleCacheSettingsReadonly(false);
     } else {
-        toggleCacheSettingsEnabled(true);
+        toggleCacheSettingsReadonly(true);
     }
 }
 
-function toggleCacheSettingsEnabled( enabled ) {
+function toggleCacheSettingsReadonly( enabled ) {
     $("#cachehost").prop('readonly', enabled);
     $("#cacheport").prop('readonly', enabled);
 }

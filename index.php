@@ -50,11 +50,7 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
         $step = 0;
     } elseif($step > count($wizardSteps) - 1 || $step < 0) {
         // You cannot go to a non-existing page of the installer!
-        if($app['session']->get('dbinstalldefault') !== null) {
-            $step = $app['session']->get('lastVisitedStep');
-        } else {
-            $step = 0;
-        }
+        $step = $app['session']->get('lastVisitedStep');
     } elseif($step > $app['session']->get('lastVisitedStep') + 1) {
         // You cannot skip steps in the installer, unless you have
         // chosen the default database installation
@@ -101,8 +97,15 @@ $app->match('/', function (Request $request) use ($app, $wizardSteps) {
         $pagevariables['hasnextpage'] = $step < count($wizardSteps);
         $pagevariables = array_merge($pagevariables, $class->getPageContent($app['session']));
 
+        // We set the requirements check to false when we reach the final page.
+        // Normally, the session should be invalidated, but that triggers PHP warnings.
+        if($step == (count($wizardSteps) - 1)) {
+            $app['session']->set('requirementsOk', false);
+        }
+
         return $app['twig']->render($page, $pagevariables);
     } catch (Exception $e) {
+        // An error occured, show the error page, and the log
         return $app['twig']->render('error.html', array('logs' => file_get_contents('settings/installer.log')));
     }
 });

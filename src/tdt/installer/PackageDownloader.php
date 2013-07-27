@@ -25,7 +25,7 @@ class PackageDownloader {
         
         // To run properly, composer needs a COMPOSER_HOME environment var to be set,
         // but since we're not running it from cli, we need to set this var manually...
-        $process = proc_open($command, $descriptorspec, $pipes, realpath('./'), array('COMPOSER_HOME=/home'));
+        $process = proc_open($command, $descriptorspec, $pipes, realpath('./'), array('COMPOSER_HOME=/tmp'));
         
         if (is_resource($process)) {
             \tdt\installer\LogWriter::write("Started composer update.");

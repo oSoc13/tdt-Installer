@@ -15,6 +15,6 @@ class LogWriter {
     public static function write($data) {
         //$date = new \DateTime();
         $data = /*$date->format('Y-m-d H:i:s') . ' ' .*/ $data . "\n";
-        file_put_contents(self::logfile, $data, FILE_APPEND);
+        @file_put_contents(self::logfile, $data, FILE_APPEND);
     }
 }

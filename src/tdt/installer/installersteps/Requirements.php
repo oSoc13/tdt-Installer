@@ -144,11 +144,12 @@ class Requirements extends InstallerStep {
     }
     
     /**
-     * Checks whether the current directory and the parent directory are writable.
+     * Checks whether the current directory, the parent directory and
+     * the settings directory are writable.
      * @return boolean
      */
     private function directoryIsWritable()
     {
-        return is_writable('.') && is_writable('..');
+        return is_writable('.') && is_writable('..') && is_writable('settings');
     }
 }
