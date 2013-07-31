@@ -17,7 +17,7 @@ class Finish extends InstallerStep {
         );
         
         $commitResult = $this->commitSettings($session);
-                
+        
         if($commitResult == false) {
             throw new \Exception();
         }
@@ -41,8 +41,8 @@ class Finish extends InstallerStep {
         $generalresult = $generalSettingsWriter->writeGeneralData($session);
         $dbresult = $dbSettingsWriter->writeDatabaseData($session);
         $commitresult = $committer->commit($session);
-
-        return $generalresult & $dbresult & $commitresult;
+        
+        return $generalresult !== false & $dbresult !== false & $commitresult != false;
     }
     
     /**

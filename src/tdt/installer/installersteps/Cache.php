@@ -35,7 +35,7 @@ class Cache extends InstallerStep {
         $cachesystemError = $data->get('cachesystem') !== 'NoCache' && $data->get('cachesystem') !== 'MemCache';
         if($data->get('cachesystem') === 'MemCache') {
             $hostError = $data->get('cachehost') === null;
-            $portError = $data->get('cacheport') === null || !is_int($data->get('cacheport')) || in_array($data->get('cacheport'), range(0, 65535)) === false;
+            $portError = $data->get('cacheport') === null || in_array((int)$data->get('cacheport'), range(0, 65535)) === false;
         } else {
             $hostError = false;
             $portError = false;

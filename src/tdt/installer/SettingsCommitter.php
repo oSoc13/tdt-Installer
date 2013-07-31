@@ -27,7 +27,7 @@ class SettingsCommitter {
             $dbResult = true;
         }
         
-        return $copyResult & $dbResult;
+        return (bool)$copyResult & $dbResult;
     }
     
     private function copyFiles() {
