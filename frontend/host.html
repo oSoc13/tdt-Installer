@@ -13,7 +13,7 @@
             <form action="#" method="post" id="configform">
 		<div class="span2" id="labels">
 			<label class="label" for="hostname"> Hostname </label>
-			<label class="label" for="subdir"> Subdirectory </label>
+			<label class="label" for="subdir"> Public directory </label>
 			<label class="label" for="defaultformat" > Default format </label>
 		</div>
 
@@ -23,7 +23,7 @@
 			{% if validationError and hostnameError %} <p>Your hostname should look like &quot;http(s)://example.com/&quot;.</p> {% endif %}
 			
 			<input class="span5" type="text" id="subdir" name="subdir" value="{{ subdir }}" />
-			{% if validationError and subdirError %} <p>The sub directory should look like &quot;datatank/public/&quot;</p> {% endif %}
+			{% if validationError and subdirError %} <p>The public directory should look like &quot;datatank/public/&quot;</p> {% endif %}
 			
 			<select class="box" id="defaultformat" name="defaultformat">
 			  <option value="json" {% if defaultformat == 'json' %} selected {% endif %}>JSON</option>
@@ -41,7 +41,7 @@
 
 			<div id="one">
 				<img class="info" src="frontend/img/info.png" alt="info">
-				<div id="two"> The subdirectory of the host where The DataTank is installed. Mostly this is the filestructure relative to your <em>www</em> folder. Defaults to the parent directory of the installer's directory. You should only change this if you plan to move the DataTank to a different directory, or if you use a VirtualHost.</div>
+				<div id="two"> The public directory of the DataTank, relative to your <em>www</em> folder. You should only change this if you plan to move the DataTank to a different directory, or if you use a VirtualHost.</div>
 			</div>
 
 			<div id="one">
