@@ -13,8 +13,12 @@ body {
 
 header {
   margin-top: 30px;
+  
 }
 
+#frontpage{
+  margin-left: 250px;
+}
 #welcome {
   vertical-align: inherit;
   margin-left: -10px;
@@ -24,6 +28,7 @@ header {
 
 section {
   margin-top: 45px;
+  margin-left: 35px;
 }
 
 #requirements {
@@ -38,7 +43,7 @@ section {
 
 h3 {
   font-weight: 400;
-  font-size: 2.2em;
+  font-size: 1.7em;
   color: #328D81;
 }
 
@@ -96,6 +101,7 @@ form {
   background-image: none;
   text-shadow:none;
   border:none;
+  margin-top: 10px;
 }
 
 #start {
@@ -111,29 +117,33 @@ form {
 
 #smallicon {
   float:left;
+  width: 60px;
+  margin-left: 35px;
 }
 
 #title{
-  margin-left: 120px;
+  margin-left: 110px;
 }
 
 h1 {
   color: #328D81;
   font-weight: 700;
-  font-size: 3.5em;
+  font-size: 2.5em;
   line-height: 100%;
 }
 
 h2 {
   color: #FF2C4C;
   font-weight: 300;
-  font-size: 3em;
+  font-size: 2em;
   line-height: 100%;
   margin-top:-10px;
 }
 
+
+
 ol.progtrckr {
-    margin: 55px 0;
+    margin: 30px 0;
     padding: 0;
     list-style-type: none;
 }
@@ -158,12 +168,12 @@ ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
     border-radius: 25px; 
     
     margin:0 auto;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
 
     background-color:#F5F4EE;
-    border: 4px solid #328D81;
-    outline: 3px solid #F5F4EE;
+    border: 3px solid #328D81;
+    outline: 2px solid #F5F4EE;
     
     -moz-box-shadow:    inset 0px 0px 0px 3px #F5F4EE;
     -webkit-box-shadow: inset 0px 0px 0px 3px #F5F4EE;
@@ -180,14 +190,14 @@ ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
 }
 
 #line{
-  height: 5px;
+  height: 3px;
   background-color: #328D81;
   width: 85%;
-  margin: -105px auto 0;
+  margin: -76px auto 0;
 }
 
 #content {
-  margin-top:70px;
+  margin-top:64px;
 }
 
 #output {
@@ -204,14 +214,14 @@ ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
 }
 
 .packages {
-  margin-top: 40px;
+  margin-top: 20px;
   margin-left: 100px;
 }
 
 label {
   color: #328D81;
-  font-size: 1.8em;
-  font-weight: 400;
+  font-size: 1.5em;
+  font-weight: 300;
   margin-left: 23px;
 }
 
@@ -240,7 +250,7 @@ label {
 .hsmall {
   font-weight: 300;
   float: left;
-  padding-top: 2px;
+  padding-top: 1px;
  
 }
 
@@ -255,7 +265,7 @@ label {
 
 .label{
   font-weight: 300;
-  font-size: 1.8em;
+  font-size: 1.5em;
   color: #328D81;
   background: none;
   line-height: 2;
@@ -275,29 +285,29 @@ label {
 }
 
 #boxen {
-  margin-top: 15px;
+  margin-top: 10px;
+}
+
+#boxencache {
+  margin-top: 10px;
+  margin-left: 70px;
 }
 
 #subdir {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .buttons {
-  margin-top: 300px;
-}
-
-.info {
-  margin-top: 24px;
+  margin-top: 200px;
 }
 
 #first {
-  margin-top: 16px;
+  margin-top: 11px;
 }
 
-#one {
-    width:100px;
-    height:48px;
-    display:block;
+.one {
+    width:25px;
+    margin-top: 25px;
 }
 
 #two {
@@ -317,47 +327,46 @@ label {
     padding: 10px 15px;
 }
 
-#one:hover #two {
+.one:hover #two {
     display:block;
 }
-
-#last{
-  margin-top: 34px;
-}
-
 #defform {
   margin-top: 19px;
 }
 
 #logging {
   font-weight: 400;
-  margin-left: 92px;
-  margin-top: 40px;
+  margin-left: 74px;
+  margin-top: 25px;
 }
 
 #timezone {
-  margin-top: 19px;
+  margin-top: 10px;
 }
 
 .box {
   margin-top: 17px;
 }
 #language {
-  margin-top: 18px;
+  margin-top: 10px;
 }
 
 #defaultformat {
-  margin-top: 18px;
+  margin-top: 10px;
 }
 
-.span2#labels {
+#labels{ 
+  margin-left: 50px;
+
+}
+.span1#labels {
   margin-left: 60px;
 }
 
 #path {
   font-size: 1.3em;
   margin-top: 5px;
-  margin-left: 162px;
+  margin-left: 130px;
 }
 
 
@@ -372,19 +381,19 @@ label {
 }
 
 #logpath {
-  margin-top: 84px
+  margin-top: 68px
 }
 
 #pathinfo {
-  margin-top: 90px;
+  margin-top: 85px;
 }
 
 #cachehost {
-  margin-top: 19px;
+  margin-top: 10px;
 }
 
 #cacheport {
-  margin-top: 18px;
+  margin-top: 10px;
 }
 
 .radio {
@@ -421,18 +430,15 @@ section.span5 {
   margin-top: 10px;
 }
 
-#info{
-  margin-left: 60px;
-}
-
 #databankbtn{
-  margin-top: 150px;
+  margin-top: 50px;
 }
 .advancedset{
   font-weight: 300;
-  font-size: 1.7em;
+  font-size: 1.5em;
   color:#FF2C4C;
   margin-top:0px;
+  margin-left: 35px;
 }
 
 .label#rpwlabel{
@@ -453,6 +459,7 @@ section.span5 {
 
 #grats {
   vertical-align: none;
+  margin-left: -20px;
 }
 
 #Summary {
@@ -460,14 +467,14 @@ section.span5 {
   border-radius: 11px;
   background-color: #E8E5E0;
   padding: 20px 35px;
-  margin-left: 55px;
   margin-right: 55px;
   overflow: auto;
   margin-bottom: 40px;
+  margin-top: 0;
 }
 
 .info#helpicon{
-  margin-top:35px;
+  margin-top:10px;
 }
 
 p {

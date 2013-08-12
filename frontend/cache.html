@@ -9,13 +9,13 @@
 	
 	<section class="formbox">
             <form action="#" method="post" id="configform">
-		<div class="span2" id="labels">
+		<div class="span1" id="labels">
 			<label class="label" for="cachesystem"> System </label>
 			<label class="label" for="cachehost"> Host </label>
 			<label class="label" for="cacheport"> Port </label>
 		</div>
 
-		<div class="span5" id="boxen">
+		<div class="span3" id="boxencache">
 			
 			<select name="cachesystem" id="cachesystem" >
                             {% for option in cachingoptions %}
@@ -33,17 +33,17 @@
 
 		<div class="span1" id="info">
 
-			<div id="one">
-				<img id="first" class="info" src="frontend/img/info.png" alt="info">
+			<div class="one" id="first">
+				<img  class="info" src="frontend/img/info.png" alt="info">
     			<div id="two">Choose from NoCache or MemCache (only available if Memcached is installed)</div>
 			</div>
 
-			<div id="one">
+			<div class="one">
 				<img class="info" src="frontend/img/info.png" alt="info">
 				<div id="two">The host that the caching system is running on. Note that if NoCache has been used, this doesn't really matter.</div>
 			</div>
 
-			<div id="one">
+			<div class="one">
 				<img id="last" class="info" src="frontend/img/info.png" alt="info">
 				<div id="two"> The port to which we have to connect in order to communicate with the caching system. Note that if NoCache has been used, this doesn't really matter.</div>
 			</div>
